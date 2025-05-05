@@ -21,10 +21,8 @@ class LoginController extends Controller
             'MotDePasse' => 'required|string',
         ]);
 
-        // Find user first
         $user = User::where('email', $credentials['email'])->first();
 
-        // Manually verify with MD5
         if ($user && md5($credentials['MotDePasse']) === $user->MotDePasse) {
             Auth::login($user, $request->remember);
 

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,12 +11,14 @@
         body {
             background-color: #f8f9fa;
         }
+
         .dashboard-title {
             color: #007bff;
             border-bottom: 2px solid #007bff;
             padding-bottom: 10px;
             margin-bottom: 20px;
         }
+
         .tab-content {
             background-color: white;
             border: 1px solid #dee2e6;
@@ -23,19 +26,23 @@
             border-radius: 0 0 0.25rem 0.25rem;
             padding: 20px;
         }
+
         .btn-add {
             background-color: #007bff;
             border-color: #007bff;
         }
+
         .btn-add:hover {
             background-color: #0056b3;
             border-color: #0056b3;
         }
+
         .nav-tabs .nav-link {
             font-weight: 500;
         }
     </style>
 </head>
+
 <body>
     <!-- Navbar & Hero Start -->
     <div class="container-fluid nav-bar px-0 px-lg-4 py-2 py-lg-0">
@@ -44,7 +51,8 @@
                 <a href="" class="navbar-brand p-0">
                     <h1 class="display-6 text-primary"><i class="fas fa-car-alt me-3"></i></i>RentFast</h1>
                 </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarCollapse">
                     <span class="fa fa-bars"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarCollapse">
@@ -77,25 +85,35 @@
 
         <ul class="nav nav-tabs" id="adminTabs" role="tablist">
             <li class="nav-item" role="presentation">
-                <button class="nav-link active" id="offres-tab" data-bs-toggle="tab" data-bs-target="#offres" type="button" role="tab" aria-controls="offres" aria-selected="true">Offres de location</button>
+                <button class="nav-link active" id="offres-tab" data-bs-toggle="tab" data-bs-target="#offres"
+                    type="button" role="tab" aria-controls="offres" aria-selected="true">Offres de
+                    location</button>
             </li>
             <li class="nav-item" role="presentation">
-                <button class="nav-link" id="employes-tab" data-bs-toggle="tab" data-bs-target="#employes" type="button" role="tab" aria-controls="employes" aria-selected="false">Employés</button>
+                <button class="nav-link" id="employes-tab" data-bs-toggle="tab" data-bs-target="#employes"
+                    type="button" role="tab" aria-controls="employes" aria-selected="false">Employés</button>
             </li>
             <li class="nav-item" role="presentation">
-                <button class="nav-link" id="clients-tab" data-bs-toggle="tab" data-bs-target="#clients" type="button" role="tab" aria-controls="clients" aria-selected="false">Clients</button>
+                <button class="nav-link" id="clients-tab" data-bs-toggle="tab" data-bs-target="#clients" type="button"
+                    role="tab" aria-controls="clients" aria-selected="false">Clients</button>
             </li>
             <li class="nav-item" role="presentation">
-                <button class="nav-link" id="recuperation-tab" data-bs-toggle="tab" data-bs-target="#recuperation" type="button" role="tab" aria-controls="recuperation" aria-selected="false">Récupération</button>
+                <button class="nav-link" id="recuperation-tab" data-bs-toggle="tab" data-bs-target="#recuperation"
+                    type="button" role="tab" aria-controls="recuperation"
+                    aria-selected="false">Récupération</button>
             </li>
             <li class="nav-item" role="presentation">
-                <button class="nav-link" id="service-client-tab" data-bs-toggle="tab" data-bs-target="#service-client" type="button" role="tab" aria-controls="service-client" aria-selected="false">Service Client</button>
+                <button class="nav-link" id="service-client-tab" data-bs-toggle="tab" data-bs-target="#service-client"
+                    type="button" role="tab" aria-controls="service-client" aria-selected="false">Service
+                    Client</button>
             </li>
             <li class="nav-item" role="presentation">
-                <button class="nav-link" id="vehicules-tab" data-bs-toggle="tab" data-bs-target="#vehicules" type="button" role="tab" aria-controls="vehicules" aria-selected="false">Véhicules</button>
+                <button class="nav-link" id="vehicules-tab" data-bs-toggle="tab" data-bs-target="#vehicules"
+                    type="button" role="tab" aria-controls="vehicules" aria-selected="false">Véhicules</button>
             </li>
             <li class="nav-item" role="presentation">
-                <button class="nav-link" id="demandes-tab" data-bs-toggle="tab" data-bs-target="#demandes" type="button" role="tab" aria-controls="demandes" aria-selected="false">Demandes</button>
+                <button class="nav-link" id="demandes-tab" data-bs-toggle="tab" data-bs-target="#demandes"
+                    type="button" role="tab" aria-controls="demandes" aria-selected="false">Demandes</button>
             </li>
         </ul>
 
@@ -111,7 +129,8 @@
                         <input type="number" class="form-control" id="offrePrix" placeholder="Prix" required>
                     </div>
                     <div class="col-md-3">
-                        <input type="text" class="form-control" id="offreDisponibilite" placeholder="Disponibilité" required>
+                        <input type="text" class="form-control" id="offreDisponibilite"
+                            placeholder="Disponibilité" required>
                     </div>
                     <div class="col-md-3">
                         <button type="submit" class="btn btn-primary btn-add w-100">Ajouter une offre</button>
@@ -204,10 +223,12 @@
                 <h2 class="mb-3">Récupération des Voitures</h2>
                 <form id="recuperationForm" class="row g-3 mb-3">
                     <div class="col-md-3">
-                        <input type="text" class="form-control" id="recuperationClient" placeholder="Nom du client" required>
+                        <input type="text" class="form-control" id="recuperationClient"
+                            placeholder="Nom du client" required>
                     </div>
                     <div class="col-md-3">
-                        <input type="text" class="form-control" id="recuperationVehicule" placeholder="Modèle du véhicule" required>
+                        <input type="text" class="form-control" id="recuperationVehicule"
+                            placeholder="Modèle du véhicule" required>
                     </div>
                     <div class="col-md-3">
                         <input type="date" class="form-control" id="recuperationDate" required>
@@ -240,16 +261,20 @@
                 <h2 class="mb-3">Service Client</h2>
                 <form id="serviceClientForm" class="row g-3 mb-3">
                     <div class="col-md-4">
-                        <input type="text" class="form-control" id="serviceClientNom" placeholder="Nom du client" required>
+                        <input type="text" class="form-control" id="serviceClientNom" placeholder="Nom du client"
+                            required>
                     </div>
                     <div class="col-md-4">
-                        <input type="email" class="form-control" id="serviceClientEmail" placeholder="Email du client" required>
+                        <input type="email" class="form-control" id="serviceClientEmail"
+                            placeholder="Email du client" required>
                     </div>
                     <div class="col-md-4">
-                        <input type="tel" class="form-control" id="serviceClientTelephone" placeholder="Téléphone du client" required>
+                        <input type="tel" class="form-control" id="serviceClientTelephone"
+                            placeholder="Téléphone du client" required>
                     </div>
                     <div class="col-12">
-                        <textarea class="form-control" id="serviceClientMessage" rows="3" placeholder="Message ou demande du client" required></textarea>
+                        <textarea class="form-control" id="serviceClientMessage" rows="3" placeholder="Message ou demande du client"
+                            required></textarea>
                     </div>
                     <div class="col-12">
                         <button type="submit" class="btn btn-primary btn-add">Enregistrer la demande</button>
@@ -274,87 +299,92 @@
                 </div>
             </div>
 
-            <!-- Véhicules tab (combined available/unavailable) -->
-            <div class="tab-pane fade" id="vehicules" role="tabpanel" aria-labelledby="vehicules-tab">
-                <ul class="nav nav-tabs" id="vehiculesTabs" role="tablist">
-                    <li class="nav-item" role="presentation">
-                        <button class="nav-link active" id="disponibles-tab" data-bs-toggle="tab" data-bs-target="#disponibles" type="button" role="tab" aria-controls="disponibles" aria-selected="true">Disponibles</button>
-                    </li>
-                    <li class="nav-item" role="presentation">
-                        <button class="nav-link" id="indisponibles-tab" data-bs-toggle="tab" data-bs-target="#indisponibles" type="button" role="tab" aria-controls="indisponibles" aria-selected="false">Indisponibles</button>
-                    </li>
-                </ul>
+            <!-- Available Vehicles Tab -->
+            <div class="tab-pane fade show active" id="disponibles" role="tabpanel"
+                aria-labelledby="disponibles-tab">
+                <!-- ... (keep your form the same) ... -->
+                <div class="table-responsive">
+                    <table class="table table-striped table-hover">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Marque</th>
+                                <th>Modèle</th>
+                                <th>Capacité</th>
+                                <th>Tarif</th>
+                                <th>Options</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="vehiculesDisponiblesTableBody">
+                            @foreach ($vehiculesDisponibles as $vehicule)
+                                <tr>
+                                    <td>{{ $vehicule->id }}</td>
+                                    <td>{{ $vehicule->marque }}</td>
+                                    <td>{{ $vehicule->model }}</td>
+                                    <td>{{ $vehicule->capacite }}</td>
+                                    <td>{{ number_format($vehicule->tarif, 2) }}€</td>
+                                    <td>{{ $vehicule->options ?? 'Aucune' }}</td>
+                                    <td>
+                                        <button class="btn btn-sm btn-warning">Modifier</button>
+                                        <button class="btn btn-sm btn-danger">Supprimer</button>
+                                        <button class="btn btn-sm btn-secondary make-unavailable"
+                                            data-id="{{ $vehicule->id }}">Rendre indisponible</button>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            </div>
 
-                <div class="tab-content p-3 border border-top-0 rounded-bottom">
-                    <div class="tab-pane fade show active" id="disponibles" role="tabpanel" aria-labelledby="disponibles-tab">
-                        <form id="vehiculeDisponibleForm" class="row g-3 mb-3">
-                            <div class="col-md-3">
-                                <input type="text" class="form-control" id="vehiculeDisponibleModele" placeholder="Modèle" required>
-                            </div>
-                            <div class="col-md-3">
-                                <input type="text" class="form-control" id="vehiculeDisponibleImmatriculation" placeholder="Immatriculation" required>
-                            </div>
-                            <div class="col-md-3">
-                                <input type="number" class="form-control" id="vehiculeDisponibleKilometrage" placeholder="Kilométrage" required>
-                            </div>
-                            <div class="col-md-3">
-                                <input type="text" class="form-control" id="vehiculeDisponibleEtat" placeholder="État" required>
-                            </div>
-                            <div class="col-12">
-                                <button type="submit" class="btn btn-primary btn-add">Ajouter un véhicule disponible</button>
-                            </div>
-                        </form>
-                        <div class="table-responsive">
-                            <table class="table table-striped table-hover">
-                                <thead>
-                                    <tr>
-                                        <th>ID</th>
-                                        <th>Modèle</th>
-                                        <th>Immatriculation</th>
-                                        <th>Kilométrage</th>
-                                        <th>État</th>
-                                        <th>Actions</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="vehiculesDisponiblesTableBody"></tbody>
-                            </table>
-                        </div>
-                    </div>
-
-                    <div class="tab-pane fade" id="indisponibles" role="tabpanel" aria-labelledby="indisponibles-tab">
-                        <form id="vehiculeIndisponibleForm" class="row g-3 mb-3">
-                            <div class="col-md-3">
-                                <input type="text" class="form-control" id="vehiculeIndisponibleModele" placeholder="Modèle" required>
-                            </div>
-                            <div class="col-md-3">
-                                <input type="text" class="form-control" id="vehiculeIndisponibleImmatriculation" placeholder="Immatriculation" required>
-                            </div>
-                            <div class="col-md-3">
-                                <input type="text" class="form-control" id="vehiculeIndisponibleRaison" placeholder="Raison" required>
-                            </div>
-                            <div class="col-md-3">
-                                <input type="date" class="form-control" id="vehiculeIndisponibleDateRetour" placeholder="Date de retour prévue" required>
-                            </div>
-                            <div class="col-12">
-                                <button type="submit" class="btn btn-primary btn-add">Ajouter un véhicule indisponible</button>
-                            </div>
-                        </form>
-                        <div class="table-responsive">
-                            <table class="table table-striped table-hover">
-                                <thead>
-                                    <tr>
-                                        <th>ID</th>
-                                        <th>Modèle</th>
-                                        <th>Immatriculation</th>
-                                        <th>Raison</th>
-                                        <th>Date de retour prévue</th>
-                                        <th>Actions</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="vehiculesIndisponiblesTableBody"></tbody>
-                            </table>
-                        </div>
-                    </div>
+            <!-- Unavailable Vehicles Tab -->
+            <div class="tab-pane fade" id="indisponibles" role="tabpanel" aria-labelledby="indisponibles-tab">
+                <div class="alert alert-info">
+                    Les véhicules indisponibles sont automatiquement listés ici lorsqu'ils sont réservés ou en
+                    maintenance.
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-striped table-hover">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Marque</th>
+                                <th>Modèle</th>
+                                <th>Raison</th>
+                                <th>Date de retour prévue</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="vehiculesIndisponiblesTableBody">
+                            @foreach ($vehiculesIndisponibles as $vehicule)
+                                <tr>
+                                    <td>{{ $vehicule->id }}</td>
+                                    <td>{{ $vehicule->marque }}</td>
+                                    <td>{{ $vehicule->model }}</td>
+                                    <td>
+                                        @if ($vehicule->reservations->count() > 0)
+                                            Réservé (Client:
+                                            {{ $vehicule->reservations->first()->client->name ?? 'Inconnu' }})
+                                        @else
+                                            Maintenance
+                                        @endif
+                                    </td>
+                                    <td>
+                                        @if ($vehicule->reservations->count() > 0)
+                                            {{ $vehicule->reservations->first()->date_fin->format('d/m/Y') }}
+                                        @else
+                                            N/A
+                                        @endif
+                                    </td>
+                                    <td>
+                                        <button class="btn btn-sm btn-success make-available"
+                                            data-id="{{ $vehicule->id }}">Rendre disponible</button>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
                 </div>
             </div>
 
@@ -363,16 +393,20 @@
                 <h2 class="mb-3">Demandes de Location</h2>
                 <form id="demandeLocationForm" class="row g-3 mb-3">
                     <div class="col-md-3">
-                        <input type="text" class="form-control" id="nomClientLocation" placeholder="Nom du client" required>
+                        <input type="text" class="form-control" id="nomClientLocation"
+                            placeholder="Nom du client" required>
                     </div>
                     <div class="col-md-3">
-                        <input type="text" class="form-control" id="modeleVehiculeLocation" placeholder="Modèle du véhicule" required>
+                        <input type="text" class="form-control" id="modeleVehiculeLocation"
+                            placeholder="Modèle du véhicule" required>
                     </div>
                     <div class="col-md-3">
-                        <input type="date" class="form-control" id="dateDebutLocation" placeholder="Date de début" required>
+                        <input type="date" class="form-control" id="dateDebutLocation"
+                            placeholder="Date de début" required>
                     </div>
                     <div class="col-md-3">
-                        <input type="date" class="form-control" id="dateFinLocation" placeholder="Date de fin" required>
+                        <input type="date" class="form-control" id="dateFinLocation" placeholder="Date de fin"
+                            required>
                     </div>
                     <div class="col-12">
                         <button type="submit" class="btn btn-primary btn-add">Ajouter une demande</button>
@@ -412,22 +446,64 @@
         }
 
         // Initialize data
-        let offres = chargerLocalStorage('offres', [
-            { id: 1, titre: "Appartement T2", prix: 500, disponibilite: "Disponible" },
-            { id: 2, titre: "Maison T4", prix: 1000, disponibilite: "Occupé" },
-            { id: 3, titre: "Studio", prix: 350, disponibilite: "Disponible" }
+        let offres = chargerLocalStorage('offres', [{
+                id: 1,
+                titre: "Appartement T2",
+                prix: 500,
+                disponibilite: "Disponible"
+            },
+            {
+                id: 2,
+                titre: "Maison T4",
+                prix: 1000,
+                disponibilite: "Occupé"
+            },
+            {
+                id: 3,
+                titre: "Studio",
+                prix: 350,
+                disponibilite: "Disponible"
+            }
         ]);
 
-        let employes = chargerLocalStorage('employes', [
-            { id: 1, nom: "Dupont", prenom: "Jean", poste: "Agent immobilier" },
-            { id: 2, nom: "Martin", prenom: "Sophie", poste: "Gestionnaire de biens" },
-            { id: 3, nom: "Durand", prenom: "Pierre", poste: "Comptable" }
+        let employes = chargerLocalStorage('employes', [{
+                id: 1,
+                nom: "Dupont",
+                prenom: "Jean",
+                poste: "Agent immobilier"
+            },
+            {
+                id: 2,
+                nom: "Martin",
+                prenom: "Sophie",
+                poste: "Gestionnaire de biens"
+            },
+            {
+                id: 3,
+                nom: "Durand",
+                prenom: "Pierre",
+                poste: "Comptable"
+            }
         ]);
 
-        let clients = chargerLocalStorage('clients', [
-            { id: 1, nom: "Lefevre", prenom: "Marie", email: "marie.lefevre@email.com" },
-            { id: 2, nom: "Dubois", prenom: "Thomas", email: "thomas.dubois@email.com" },
-            { id: 3, nom: "Roux", prenom: "Camille", email: "camille.roux@email.com" }
+        let clients = chargerLocalStorage('clients', [{
+                id: 1,
+                nom: "Lefevre",
+                prenom: "Marie",
+                email: "marie.lefevre@email.com"
+            },
+            {
+                id: 2,
+                nom: "Dubois",
+                prenom: "Thomas",
+                email: "thomas.dubois@email.com"
+            },
+            {
+                id: 3,
+                nom: "Roux",
+                prenom: "Camille",
+                email: "camille.roux@email.com"
+            }
         ]);
 
         // Display functions
@@ -510,7 +586,12 @@
             const titre = document.getElementById('offreTitre').value;
             const prix = document.getElementById('offrePrix').value;
             const disponibilite = document.getElementById('offreDisponibilite').value;
-            offres.push({ id: offres.length ? Math.max(...offres.map(o => o.id)) + 1 : 1, titre, prix: parseInt(prix), disponibilite });
+            offres.push({
+                id: offres.length ? Math.max(...offres.map(o => o.id)) + 1 : 1,
+                titre,
+                prix: parseInt(prix),
+                disponibilite
+            });
             sauvegarderLocalStorage('offres', offres);
             afficherOffres();
             this.reset();
@@ -521,7 +602,12 @@
             const nom = document.getElementById('employeNom').value;
             const prenom = document.getElementById('employePrenom').value;
             const poste = document.getElementById('employePoste').value;
-            employes.push({ id: employes.length ? Math.max(...employes.map(e => e.id)) + 1 : 1, nom, prenom, poste });
+            employes.push({
+                id: employes.length ? Math.max(...employes.map(e => e.id)) + 1 : 1,
+                nom,
+                prenom,
+                poste
+            });
             sauvegarderLocalStorage('employes', employes);
             afficherEmployes();
             this.reset();
@@ -532,7 +618,12 @@
             const nom = document.getElementById('clientNom').value;
             const prenom = document.getElementById('clientPrenom').value;
             const email = document.getElementById('clientEmail').value;
-            clients.push({ id: clients.length ? Math.max(...clients.map(c => c.id)) + 1 : 1, nom, prenom, email });
+            clients.push({
+                id: clients.length ? Math.max(...clients.map(c => c.id)) + 1 : 1,
+                nom,
+                prenom,
+                email
+            });
             sauvegarderLocalStorage('clients', clients);
             afficherClients();
             this.reset();
@@ -643,18 +734,20 @@
                 const data = {
                     id: generateUniqueId(),
                     modele: document.getElementById('vehiculeIndisponibleModele').value,
-                    immatriculation: document.getElementById('vehiculeIndisponibleImmatriculation').value,
+                    immatriculation: document.getElementById('vehiculeIndisponibleImmatriculation')
+                        .value,
                     raison: document.getElementById('vehiculeIndisponibleRaison').value,
                     dateRetour: document.getElementById('vehiculeIndisponibleDateRetour').value
                 };
-                let vehiculesIndisponibles = JSON.parse(localStorage.getItem('vehiculesIndisponibles')) || [];
+                let vehiculesIndisponibles = JSON.parse(localStorage.getItem('vehiculesIndisponibles')) ||
+                [];
                 vehiculesIndisponibles.push(data);
                 localStorage.setItem('vehiculesIndisponibles', JSON.stringify(vehiculesIndisponibles));
                 addRowToTable('vehiculesIndisponiblesTableBody', data);
                 this.reset();
             });
 
-            document.addEventListener('DOMContentLoaded', function () {
+            document.addEventListener('DOMContentLoaded', function() {
                 const demandesTableBody = document.getElementById('demandesLocationTableBody');
 
                 // Fonction pour charger les demandes de location depuis le localStorage
@@ -683,11 +776,13 @@
                 loadDemandesLocation();
 
                 // Gérer la suppression des demandes
-                demandesTableBody.addEventListener('click', function (e) {
+                demandesTableBody.addEventListener('click', function(e) {
                     if (e.target.classList.contains('delete-btn')) {
                         const id = e.target.getAttribute('data-id');
-                        let demandesLocation = JSON.parse(localStorage.getItem('demandesLocation')) || [];
-                        demandesLocation = demandesLocation.filter((reservation) => reservation.id !== id);
+                        let demandesLocation = JSON.parse(localStorage.getItem(
+                            'demandesLocation')) || [];
+                        demandesLocation = demandesLocation.filter((reservation) => reservation
+                            .id !== id);
                         localStorage.setItem('demandesLocation', JSON.stringify(demandesLocation));
 
                         // Recharger le tableau
@@ -698,15 +793,19 @@
 
             // Gestion des actions d'édition et de suppression
             document.addEventListener('click', function(e) {
-                if (e.target.classList.contains('edit-btn') || e.target.parentElement.classList.contains('edit-btn')) {
-                    const button = e.target.classList.contains('edit-btn') ? e.target : e.target.parentElement;
+                if (e.target.classList.contains('edit-btn') || e.target.parentElement.classList.contains(
+                        'edit-btn')) {
+                    const button = e.target.classList.contains('edit-btn') ? e.target : e.target
+                        .parentElement;
                     const id = button.getAttribute('data-id');
                     // Implémentez ici la logique d'édition
                     console.log('Édition de l\'élément avec l\'ID:', id);
                 }
 
-                if (e.target.classList.contains('delete-btn') || e.target.parentElement.classList.contains('delete-btn')) {
-                    const button = e.target.classList.contains('delete-btn') ? e.target : e.target.parentElement;
+                if (e.target.classList.contains('delete-btn') || e.target.parentElement.classList.contains(
+                        'delete-btn')) {
+                    const button = e.target.classList.contains('delete-btn') ? e.target : e.target
+                        .parentElement;
                     const id = button.getAttribute('data-id');
                     const row = button.closest('tr');
                     const tableBody = row.parentElement;
@@ -716,7 +815,7 @@
                         'vehiculesDisponiblesTableBody': 'vehiculesDisponibles',
                         'vehiculesIndisponiblesTableBody': 'vehiculesIndisponibles',
                         'demandesLocationTableBody': 'demandesLocation'
-                    }[tableBody.id];
+                    } [tableBody.id];
 
                     if (confirm('Êtes-vous sûr de vouloir supprimer cet élément ?')) {
                         let items = JSON.parse(localStorage.getItem(storageKey)) || [];
@@ -734,4 +833,5 @@
         });
     </script>
 </body>
+
 </html>

@@ -108,6 +108,14 @@
                                             <input type="tel" id="telephoneClient" class="form-control"
                                                 placeholder="Entrez votre numéro" required>
                                         </div>
+                                        <div class="mb-3">
+                                            <label for="permisFront" class="form-label">Permis de conduire (Recto)</label>
+                                            <input type="file" id="permisFront" name="permis_front" class="form-control" accept="image/*" required>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="permisBack" class="form-label">Permis de conduire (Verso)</label>
+                                            <input type="file" id="permisBack" name="permis_back" class="form-control" accept="image/*" required>
+                                        </div>
 
                                         <div class="mb-3">
                                             <label for="modeleVehicule" class="form-label">Modèle de véhicule</label>
@@ -1232,7 +1240,39 @@
         </script>
 
 
+        <!-- Your existing HTML form -->
+<form id="reservationForm">
+    <!-- Form fields here -->
+</form>
 
+<!-- Add this script at the end of the file -->
+<script>
+document.getElementById('reservationForm').addEventListener('submit', async function(e) {
+    e.preventDefault();
+
+    const formData = new FormData();
+    formData.append('dateDebut', document.getElementById('dateDebut').value);
+    formData.append('dateFin', document.getElementById('dateFin').value);
+    formData.append('permis_front', document.getElementById('permisFront').files[0]);
+    formData.append('permis_back', document.getElementById('permisBack').files[0]);
+    formData.append('vehicule_id', 1); // Replace with dynamic value
+    formData.append('client_id', 1);    // Replace with dynamic value
+
+    try {
+        const response = await fetch('/reservations', {
+            method: 'POST',
+            headers: {
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
+            },
+            body: formData,
+        });
+        const result = await response.json();
+        alert('Réservation réussie !');
+    } catch (error) {
+        console.error('Error:', error);
+    }
+});
+</script>
 
 
         <script src="{{ asset('assets/js/main.js')}}"></script>

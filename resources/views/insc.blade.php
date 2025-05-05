@@ -69,18 +69,23 @@
                 <div class="card shadow-lg border-0">
                     <div class="card-body p-5">
                         <h3 class="text-center text-primary mb-4"><b>Inscription</b></h3>
-                        <form id="registrationForm">
+                        <form method="POST" id="registrationForm">
+                            @csrf
                             <div class="form-group mb-3">
                                 <label for="first-name" class="form-label">Prénom</label>
-                                <input type="text" id="first-name" name="first-name" class="form-control rounded-pill" placeholder="Entrez votre prénom" required>
+                                <input type="text" id="first-name" name="prenom" class="form-control rounded-pill" placeholder="Entrez votre prénom" required>
                             </div>
                             <div class="form-group mb-3">
                                 <label for="last-name" class="form-label">Nom</label>
-                                <input type="text" id="last-name" name="last-name" class="form-control rounded-pill" placeholder="Entrez votre nom" required>
+                                <input type="text" id="last-name" name="nom" class="form-control rounded-pill" placeholder="Entrez votre nom" required>
                             </div>
                             <div class="form-group mb-3">
                                 <label for="email" class="form-label">Adresse e-mail</label>
                                 <input type="email" id="email" name="email" class="form-control rounded-pill" placeholder="Entrez votre e-mail" required>
+                            </div>
+                            <div class="form-group mb-3">
+                                <label for="tel" class="form-label">Téléphone</label>
+                                <input type="tel" id="tel" name="tel" class="form-control rounded-pill" placeholder="Entrez votre numéro de téléphone" required>
                             </div>
                             <div class="form-group mb-3">
                                 <label for="MotDePasse" class="form-label">Mot de passe</label>
@@ -108,16 +113,16 @@
     <!-- Registration Form End -->
 
     <!-- Scripts -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    {{-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
 
     <script src="{{ asset('assets/lib/wow/wow.min.js') }}"></script>
     <script src="{{ asset('assets/lib/easing/easing.min.js') }}"></script>
     <script src="{{ asset('assets/lib/waypoints/waypoints.min.js') }}"></script>
     <script src="{{ asset('assets/lib/counterup/counterup.min.js') }}"></script>
-    <script src="{{ asset('assets/lib/owlcarousel/owl.carousel.min.js') }}"></script>
+    <script src="{{ asset('assets/lib/owlcarousel/owl.carousel.min.js') }}"></script> --}}
 
-    <script>
+    {{-- <script>
         // Gestion du formulaire d'inscription client
         document.getElementById('registrationForm').addEventListener('submit', function(e) {
             e.preventDefault();
@@ -157,7 +162,7 @@
             // Rediriger vers le tableau de bord ou une autre page
             window.location.href = '{{ url('/login') }}';
         });
-    </script>
+    </script> --}}
 </body>
 
 </html>
