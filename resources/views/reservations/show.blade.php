@@ -82,11 +82,11 @@
             <!-- Ajoutez cette section juste après le début de la section Reservation Details -->
 <div class="container-xxl py-5 wow fadeInUp" data-wow-delay="0.1s">
     <div class="container">
-        <div class="alert alert-primary alert-dismissible fade show" role="alert">
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             <h4 class="alert-heading"><i class="fas fa-info-circle me-2"></i> Votre numéro de réservation</h4>
             <div class="d-flex align-items-center mt-3">
-                <div class="bg-white text-primary rounded-pill py-2 px-4 me-3" style="font-size: 24px; font-weight: bold;">
+                <div class="bg-white text-success rounded-pill py-2 px-4 me-3" style="font-size: 24px; font-weight: bold;">
                     #{{ str_pad($reservation->id, 6, '0', STR_PAD_LEFT) }}
                 </div>
                 <div>
@@ -95,7 +95,10 @@
                 </div>
             </div>
             <hr>
-            <button class="btn btn-outline-primary btn-sm mt-2" onclick="copyReservationId()">
+            <div class="mb-2">
+                <p class="mb-2"><i class="fas fa-exclamation-circle me-2"></i>Si vous souhaitez annuler votre réservation ou prolonger la durée de location, veuillez contacter notre service client.</p>
+            </div>
+            <button class="btn btn-outline-success btn-sm mt-2" onclick="copyReservationId()">
                 <i class="fas fa-copy me-2"></i>Copier le numéro
             </button>
         </div>
