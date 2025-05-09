@@ -1,40 +1,34 @@
-# Use official PHP image with required extensions
 FROM php:8.2-fpm
-
-# Set working directory
-WORKDIR /var/www
 
 # Install system dependencies
 RUN apt-get update && apt-get install -y \
     git \
     curl \
     libpng-dev \
-    libjpeg-dev \
     libonig-dev \
     libxml2-dev \
     zip \
     unzip \
     libzip-dev \
-    libpq-dev \
-    libmcrypt-dev \
-    mysql-client \
-    npm \
-    nodejs
-
-# Install PHP extensions
-RUN docker-php-ext-install pdo pdo_mysql mbstring zip exif pcntl bcmath gd
+    mariadb-client \
+    && docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd zip
 
 # Install Composer
-COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
+COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
-# Copy existing app
+# Set working directory
+WORKDIR /var/www
+
+# Copy existing application directory contents
 COPY . /var/www
 
-# Set permissions
+# Install Laravel dependencies
+RUN composer install --no-dev --optimize-autoloader
+
+# Copy existing application directory permissions
 RUN chown -R www-data:www-data /var/www && chmod -R 755 /var/www
 
-# Expose port
-EXPOSE 8000
+# Expose port 10000 and start Laravel server
+EXPOSE 10000
 
-# Start Laravel
-CMD php artisan migrate --force && php artisan serve --host=0.0.0.0 --port=8000
+CMD php artisan config:cache && php artisan migrate --force && php artisan serve --host=0.0.0.0 --port=10000
