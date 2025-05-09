@@ -6,9 +6,6 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
         Schema::create('vehicules', function (Blueprint $table) {
@@ -19,15 +16,16 @@ return new class extends Migration
             $table->boolean('disponibilite')->default(true);
             $table->decimal('tarif', 8, 2);
             $table->string('marque');
+            $table->string('type_carburant'); // essence or diesel
+            $table->integer('annee'); // manufacturing year
+            $table->string('transmission'); // automatique or manuelle
+            $table->integer('kilometrage');
+            $table->integer('etoiles')->default(4); // rating (1-5 stars)
             $table->foreignId('admin_id')->constrained()->onDelete('cascade');
-
             $table->timestamps();
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
         Schema::dropIfExists('vehicules');

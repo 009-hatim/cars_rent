@@ -27,4 +27,9 @@ class Client extends Model
     {
         return $this->belongsTo(Admin::class);
     }
+
+    public function getNomCompletAttribute()
+    {
+        return $this->user ? trim($this->user->nom . ' ' . $this->user->prenom) : 'Anonyme';
+    }
 }

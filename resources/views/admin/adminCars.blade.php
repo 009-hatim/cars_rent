@@ -1,218 +1,192 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin - Vehicle Management</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-</head>
-<body>
-    <div class="container-fluid">
-        <h1 class="my-4">Vehicle Management</h1>
+@extends('admin.admin')
 
-        <div class="card mb-4">
-            <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
-                <h3 class="card-title mb-0">Vehicles List</h3>
-                <button class="btn btn-light" data-bs-toggle="modal" data-bs-target="#addVehicleModal">
-                    <i class="fas fa-plus"></i> Add Vehicle
-                </button>
-            </div>
-            <div class="card-body">
-                @if(session('success'))
-                    <div class="alert alert-success">{{ session('success') }}</div>
-                @endif
-                @if(session('error'))
-                    <div class="alert alert-danger">{{ session('error') }}</div>
-                @endif
+@section('title', 'Gestion des Véhicules')
 
-                <table class="table table-bordered table-striped">
-                    <thead class="table-dark">
-                        <tr>
-                            <th>ID</th>
-                            <th>Brand</th>
-                            <th>Model</th>
-                            <th>Capacity</th>
-                            <th>Rate (€/day)</th>
-                            <th>Availability</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach($vehicules as $vehicule)
-                        <tr>
-                            <td>{{ $vehicule->id }}</td>
-                            <td>{{ $vehicule->marque }}</td>
-                            <td>{{ $vehicule->model }}</td>
-                            <td>{{ $vehicule->capacite }} persons</td>
-                            <td>{{ number_format($vehicule->tarif, 2) }} €</td>
-                            <td>
-                                <div class="form-check form-switch">
-                                    <input class="form-check-input availability-toggle" type="checkbox"
-                                        data-vehicule-id="{{ $vehicule->id }}"
-                                        {{ $vehicule->disponibilite ? 'checked' : '' }}>
-                                    <label class="form-check-label">
-                                        {{ $vehicule->disponibilite ? 'Available' : 'Unavailable' }}
-                                    </label>
-                                </div>
-                            </td>
-                            <td>
-                                <a href="/admin/vehicules/{{ $vehicule->id }}" class="btn btn-sm btn-info">
-                                    <i class="fas fa-eye"></i> View
-                                </a>
-                                <button class="btn btn-sm btn-warning edit-vehicle"
-                                    data-bs-toggle="modal"
-                                    data-bs-target="#editVehicleModal"
-                                    data-vehicule="{{ json_encode($vehicule) }}">
-                                    <i class="fas fa-edit"></i> Edit
-                                </button>
-                                <form action="{{ route('vehicules.destroy', $vehicule->id) }}" method="POST" class="d-inline">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure?')">
-                                        <i class="fas fa-trash"></i> Delete
-                                    </button>
-                                </form>
-                            </td>
-                        </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-            </div>
-        </div>
+@section('content')
+<div class="container-fluid">
+    <div class="page-header">
+        <h1>Gestion des Véhicules</h1>
+        <a href="{{ route('admin.cars.store') }}" class="btn btn-primary">
+            <i class="fas fa-plus-circle me-1"></i> Nouveau véhicule
+        </a>
     </div>
 
-    <!-- Add Vehicle Modal -->
-    <div class="modal fade" id="addVehicleModal" tabindex="-1" aria-labelledby="addVehicleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="addVehicleModalLabel">Add New Vehicle</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    @if(session('success'))
+    <div class="alert alert-success alert-dismissible fade show">
+        <i class="fas fa-check-circle me-2"></i>
+        {{ session('success') }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    @endif
+
+    <div class="row">
+        <div class="col-lg-4">
+            <div class="card shadow-sm mb-4">
+                <div class="card-header">
+                    <h6 class="m-0 font-weight-bold text-primary">
+                        {{ isset($editMode) && $editMode ? 'Modifier le Véhicule' : 'Ajouter un Véhicule' }}
+                    </h6>
                 </div>
-                <form action="{{ route('vehicules.store') }}" method="POST">
-                    @csrf
-                    <div class="modal-body">
-                        <div class="mb-3">
-                            <label for="marque" class="form-label">Brand</label>
-                            <input type="text" class="form-control" id="marque" name="marque" required>
+                <div class="card-body">
+                    <form method="POST" action="{{ isset($editMode) && $editMode ? route('admin.cars.update', $vehicule->id) : route('admin.cars.store') }}">
+                        @csrf
+                        @if(isset($editMode) && $editMode)
+                        @method('PUT')
+                        @endif
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="marque" class="form-label">Marque</label>
+                                <input type="text" id="marque" name="marque" class="form-control" value="{{ $vehicule->marque ?? '' }}" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="model" class="form-label">Modèle</label>
+                                <input type="text" id="model" name="model" class="form-control" value="{{ $vehicule->model ?? '' }}" required>
+                            </div>
                         </div>
-                        <div class="mb-3">
-                            <label for="model" class="form-label">Model</label>
-                            <input type="text" class="form-control" id="model" name="model" required>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="annee" class="form-label">Année</label>
+                                <input type="number" id="annee" name="annee" class="form-control" value="{{ $vehicule->annee ?? '' }}" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="tarif" class="form-label">Tarif journalier (€)</label>
+                                <input type="number" id="tarif" step="0.01" name="tarif" class="form-control" value="{{ $vehicule->tarif ?? '' }}" required>
+                            </div>
                         </div>
-                        <div class="mb-3">
-                            <label for="capacite" class="form-label">Capacity</label>
-                            <input type="number" class="form-control" id="capacite" name="capacite" required>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="capacite" class="form-label">Capacité (personnes)</label>
+                                <input type="number" id="capacite" name="capacite" class="form-control" value="{{ $vehicule->capacite ?? '' }}" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="type_carburant" class="form-label">Type Carburant</label>
+                                <select id="type_carburant" name="type_carburant" class="form-select" required>
+                                    <option value="">-- Sélectionner --</option>
+                                    <option value="essence" {{ (isset($vehicule) && $vehicule->type_carburant == 'essence') ? 'selected' : '' }}>Essence</option>
+                                    <option value="diesel" {{ (isset($vehicule) && $vehicule->type_carburant == 'diesel') ? 'selected' : '' }}>Diesel</option>
+                                    <option value="electrique" {{ (isset($vehicule) && $vehicule->type_carburant == 'electrique') ? 'selected' : '' }}>Électrique</option>
+                                    <option value="hybride" {{ (isset($vehicule) && $vehicule->type_carburant == 'hybride') ? 'selected' : '' }}>Hybride</option>
+                                </select>
+                            </div>
                         </div>
-                        <div class="mb-3">
-                            <label for="tarif" class="form-label">Rate (€/day)</label>
-                            <input type="number" step="0.01" class="form-control" id="tarif" name="tarif" required>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="transmission" class="form-label">Transmission</label>
+                                <select id="transmission" name="transmission" class="form-select" required>
+                                    <option value="">-- Sélectionner --</option>
+                                    <option value="automatique" {{ (isset($vehicule) && $vehicule->transmission == 'automatique') ? 'selected' : '' }}>Automatique</option>
+                                    <option value="manuelle" {{ (isset($vehicule) && $vehicule->transmission == 'manuelle') ? 'selected' : '' }}>Manuelle</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="kilometrage" class="form-label">Kilométrage</label>
+                                <input type="number" id="kilometrage" name="kilometrage" class="form-control" value="{{ $vehicule->kilometrage ?? '' }}" required>
+                            </div>
                         </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="etoiles" class="form-label">Étoiles (1-5)</label>
+                                <input type="number" id="etoiles" name="etoiles" min="1" max="5" class="form-control" value="{{ $vehicule->etoiles ?? 4 }}" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="disponibilite" class="form-label">Disponibilité</label>
+                                <select id="disponibilite" name="disponibilite" class="form-select">
+                                    <option value="1" {{ (isset($vehicule) && $vehicule->disponibilite) ? 'selected' : '' }}>Disponible</option>
+                                    <option value="0" {{ (isset($vehicule) && !$vehicule->disponibilite) ? 'selected' : '' }}>Indisponible</option>
+                                </select>
+                            </div>
+                        </div>
+
                         <div class="mb-3">
                             <label for="options" class="form-label">Options</label>
-                            <textarea class="form-control" id="options" name="options" rows="3"></textarea>
+                            <textarea id="options" name="options" class="form-control" rows="3" placeholder="GPS, Bluetooth, Climatisation, etc.">{{ $vehicule->options ?? '' }}</textarea>
                         </div>
-                        <div class="mb-3 form-check">
-                            <input type="checkbox" class="form-check-input" id="disponibilite" name="disponibilite" checked>
-                            <label class="form-check-label" for="disponibilite">Available</label>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Save Vehicle</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
 
-    <!-- Edit Vehicle Modal -->
-    <div class="modal fade" id="editVehicleModal" tabindex="-1" aria-labelledby="editVehicleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="editVehicleModalLabel">Edit Vehicle</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        <div class="d-flex gap-2">
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas {{ isset($editMode) ? 'fa-save' : 'fa-plus-circle' }} me-1"></i>
+                                {{ isset($editMode) && $editMode ? 'Mettre à jour' : 'Ajouter' }}
+                            </button>
+                            @if(isset($editMode))
+                            <a href="{{ route('admin.cars') }}" class="btn btn-secondary">
+                                <i class="fas fa-times me-1"></i> Annuler
+                            </a>
+                            @endif
+                        </div>
+                    </form>
                 </div>
-                <form id="editVehicleForm" method="POST">
-                    @csrf
-                    @method('PUT')
-                    <div class="modal-body">
-                        <div class="mb-3">
-                            <label for="edit_marque" class="form-label">Brand</label>
-                            <input type="text" class="form-control" id="edit_marque" name="marque" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="edit_model" class="form-label">Model</label>
-                            <input type="text" class="form-control" id="edit_model" name="model" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="edit_capacite" class="form-label">Capacity</label>
-                            <input type="number" class="form-control" id="edit_capacite" name="capacite" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="edit_tarif" class="form-label">Rate (€/day)</label>
-                            <input type="number" step="0.01" class="form-control" id="edit_tarif" name="tarif" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="edit_options" class="form-label">Options</label>
-                            <textarea class="form-control" id="edit_options" name="options" rows="3"></textarea>
-                        </div>
-                        <div class="mb-3 form-check">
-                            <input type="checkbox" class="form-check-input" id="edit_disponibilite" name="disponibilite">
-                            <label class="form-check-label" for="edit_disponibilite">Available</label>
-                        </div>
+            </div>
+        </div>
+
+        <div class="col-lg-8">
+            <div class="card shadow-sm">
+                <div class="card-header">
+                    <h6 class="m-0 font-weight-bold text-primary">Liste des véhicules</h6>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover" width="100%" cellspacing="0">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Véhicule</th>
+                                    <th>Année</th>
+                                    <th>Tarif</th>
+                                    <th>Disponibilité</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach($vehicules as $v)
+                                <tr>
+                                    <td>{{ $v->id }}</td>
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            <div class="avatar-sm me-3 bg-light-primary rounded-circle">
+                                                <i class="fas fa-car"></i>
+                                            </div>
+                                            <div>
+                                                <strong>{{ $v->marque }} {{ $v->model }}</strong>
+                                                <div class="small text-muted">{{ $v->capacite }} places • {{ ucfirst($v->transmission) }}</div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>{{ $v->annee }}</td>
+                                    <td>{{ $v->tarif }} €/jour</td>
+                                    <td>
+                                        @if($v->disponibilite)
+                                        <span class="badge bg-success">Disponible</span>
+                                        @else
+                                        <span class="badge bg-danger">Indisponible</span>
+                                        @endif
+                                    </td>
+                                    <td>
+                                        <div class="action-buttons">
+                                            <a href="{{ route('admin.cars.edit', $v->id) }}" class="btn btn-sm btn-warning" title="Modifier">
+                                                <i class="fas fa-edit"></i>
+                                            </a>
+                                            <form action="{{ route('admin.cars.destroy', $v->id) }}" method="POST" class="d-inline">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-sm btn-danger" title="Supprimer" onclick="return confirm('Confirmer la suppression ?')">
+                                                    <i class="fas fa-trash"></i>
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </td>
+                                </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Update Vehicle</button>
-                    </div>
-                </form>
+                </div>
             </div>
         </div>
     </div>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script>
-        $(document).ready(function() {
-            // Handle edit button click
-            $('.edit-vehicle').click(function() {
-                const vehicule = JSON.parse($(this).attr('data-vehicule'));
-                const form = $('#editVehicleForm');
-                form.attr('action', `/admin/vehicules/${vehicule.id}`);
-
-                $('#edit_marque').val(vehicule.marque);
-                $('#edit_model').val(vehicule.model);
-                $('#edit_capacite').val(vehicule.capacite);
-                $('#edit_tarif').val(vehicule.tarif);
-                $('#edit_options').val(vehicule.options);
-                $('#edit_disponibilite').prop('checked', vehicule.disponibilite);
-            });
-
-            // Handle availability toggle
-            $('.availability-toggle').change(function() {
-                const vehiculeId = $(this).data('vehicule-id');
-                const isAvailable = $(this).is(':checked');
-
-                $.ajax({
-                    url: `/admin/vehicules/${vehiculeId}/toggle-availability`,
-                    method: 'PATCH',
-                    data: {
-                        disponibilite: isAvailable,
-                        _token: '{{ csrf_token() }}'
-                    },
-                    success: function(response) {
-                        location.reload();
-                    },
-                    error: function(xhr) {
-                        alert('Error updating availability');
-                        location.reload();
-                    }
-                });
-            });
-        });
-    </script>
-</body>
-</html>
+</div>
+@endsection

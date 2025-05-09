@@ -29,8 +29,9 @@ class LoginController extends Controller
             $request->session()->regenerate();
 
             if ($user->admin) {
-                return redirect()->route('admindashboard');
+                return redirect()->route('admin.dashboard');
             }
+
 
             return redirect()->intended(route('index'));
         }
@@ -46,6 +47,6 @@ class LoginController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return redirect('/');
+        return redirect()->route('login');
     }
 }

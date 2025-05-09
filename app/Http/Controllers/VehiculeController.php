@@ -13,74 +13,60 @@ class VehiculeController extends Controller
         return view('admin.adminCars', compact('vehicules'));
     }
 
+
+    public function publicIndex()
+    {
+        $vehicules = Vehicule::where('disponibilite', true)->get();
+        return view('index', compact('vehicules'));
+    }
+
+    public function create()
+    {
+        return view('admin.vehicules.create');
+    }
+
     public function store(Request $request)
     {
-        $request->validate([
-            'marque' => 'required|string|max:255',
-            'model' => 'required|string|max:255',
-            'capacite' => 'required|integer|min:1',
-            'tarif' => 'required|numeric|min:0',
-            'options' => 'nullable|string',
-            'disponibilite' => 'boolean'
+        $validated = $request->validate([
+            'model' => 'required',
+            'capacite' => 'required|integer',
+            'tarif' => 'required|numeric',
+            'marque' => 'required',
+            'type_carburant' => 'required',
+            'annee' => 'required|integer',
+            'transmission' => 'required',
+            'kilometrage' => 'required|integer',
+            'etoiles' => 'required|integer',
+            'disponibilite' => 'required|boolean',
+            'admin_id' => 'required|exists:admins,id',
+            'options' => 'nullable|string', 
         ]);
 
-        $vehicule = Vehicule::create([
-            'marque' => $request->marque,
-            'model' => $request->model,
-            'capacite' => $request->capacite,
-            'tarif' => $request->tarif,
-            'options' => $request->options,
-            'disponibilite' => $request->disponibilite ?? true,
-            'admin_id' => auth()->user()->admin->id
-        ]);
 
-        return redirect()->route('vehicules.index')->with('success', 'Vehicle added successfully!');
+        Vehicule::create($validated);
+        return redirect()->route('admin.cars')->with('success', 'Véhicule ajouté.');
     }
 
-    public function show(Vehicule $vehicule)
+    public function edit($id)
     {
-        return view('admin.vehicule-details', compact('vehicule'));
+        $vehicules = Vehicule::all();
+        $vehicule = Vehicule::findOrFail($id);
+        $editMode = true;
+
+        return view('admin.adminCars', compact('vehicules', 'vehicule', 'editMode'));
     }
 
-    public function update(Request $request, Vehicule $vehicule)
+
+    public function update(Request $request, $id)
     {
-        $request->validate([
-            'marque' => 'required|string|max:255',
-            'model' => 'required|string|max:255',
-            'capacite' => 'required|integer|min:1',
-            'tarif' => 'required|numeric|min:0',
-            'options' => 'nullable|string',
-            'disponibilite' => 'boolean'
-        ]);
-
-        $vehicule->update([
-            'marque' => $request->marque,
-            'model' => $request->model,
-            'capacite' => $request->capacite,
-            'tarif' => $request->tarif,
-            'options' => $request->options,
-            'disponibilite' => $request->disponibilite ?? true
-        ]);
-
-        return redirect()->route('vehicules.index')->with('success', 'Vehicle updated successfully!');
+        $vehicule = Vehicule::findOrFail($id);
+        $vehicule->update($request->all());
+        return redirect()->route('admin.cars')->with('success', 'Véhicule modifié.');
     }
 
-    public function destroy(Vehicule $vehicule)
+    public function destroy($id)
     {
-        $vehicule->delete();
-        return redirect()->route('vehicules.index')->with('success', 'Vehicle deleted successfully!');
-    }
-
-    public function toggleAvailability(Vehicule $vehicule, Request $request)
-    {
-        $request->validate([
-            'disponibilite' => 'required|boolean'
-        ]);
-
-        $vehicule->update([
-            'disponibilite' => $request->disponibilite
-        ]);
-
-        return response()->json(['success' => true]);
+        Vehicule::destroy($id);
+        return redirect()->route('admin.cars')->with('success', 'Véhicule supprimé.');
     }
 }

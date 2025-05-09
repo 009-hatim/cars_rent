@@ -16,7 +16,15 @@ class Vehicule extends Model
         'disponibilite',
         'tarif',
         'marque',
+        'type_carburant',
+        'annee',
+        'transmission',
+        'kilometrage',
+        'etoiles',
+        'admin_id'
     ];
+
+    // Relationships
     public function reservations()
     {
         return $this->hasMany(Reservation::class);
@@ -26,6 +34,7 @@ class Vehicule extends Model
     {
         return $this->hasOne(Assurance::class);
     }
+
     public function admin()
     {
         return $this->belongsTo(Admin::class);

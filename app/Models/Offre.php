@@ -10,8 +10,9 @@ class Offre extends Model
     use HasFactory;
     protected $fillable = [
         'description',
-        'desponsabilite',
+        'desponibilite',
         'reduction',
+        'admin_id'
     ];
     public function Admin(){
         return $this->belongsTo(Admin::class);
