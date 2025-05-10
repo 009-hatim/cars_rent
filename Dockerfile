@@ -1,34 +1,27 @@
-FROM node:18 AS node_modules
-WORKDIR /app
-COPY package*.json ./
-RUN npm install
+FROM php:8.2-cli
 
-FROM php:8.2-fpm
-
-# Install system dependencies
+# Installer les dépendances système
 RUN apt-get update && apt-get install -y \
-    git curl libpng-dev libonig-dev libxml2-dev zip unzip libzip-dev mariadb-client \
+    git curl zip unzip libpng-dev libonig-dev libxml2-dev libzip-dev mariadb-client \
     && docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd zip
 
-# Install Composer
+# Installer Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
-# Set working directory
+# Définir le répertoire de travail
 WORKDIR /var/www
 
-# Copy source code
+# Copier les fichiers du projet
 COPY . .
 
-# Copy node modules and build assets
-COPY --from=node_modules /app/node_modules ./node_modules
-RUN npm run build
-
-# Install PHP dependencies
+# Installer les dépendances PHP
 RUN composer install --no-dev --optimize-autoloader
 
-# Fix permissions
+# Donner les bons droits
 RUN chown -R www-data:www-data /var/www && chmod -R 755 /var/www
 
+# Exposer le port
 EXPOSE 10000
 
-CMD php artisan config:cache && php artisan migrate --force && php artisan serve --host=0.0.0.0 --port=10000
+# Démarrer Laravel (en servant depuis le dossier public)
+CMD php artisan config:cache && php artisan migrate --force && php artisan serve --host=0.0.0.0 --port=10000 --root=/var/www/public
