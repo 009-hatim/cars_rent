@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Offre;
 use App\Models\Reservation;
 use App\Models\Vehicule;
 use Illuminate\Http\Request;
@@ -17,9 +18,12 @@ class ReservationController extends Controller
         }
 
         $vehicules = Vehicule::where('disponibilite', true)->get();
+        $offre = Offre::where('desponibilite', 'oui')->first();
 
-        return view('reservations.create', compact('vehicules'));
+
+        return view('reservations.create', compact('vehicules', 'offre'));
     }
+
 
 
 
@@ -35,12 +39,12 @@ class ReservationController extends Controller
         }
 
         $vehicules = Vehicule::where('disponibilite', true)->get();
+        $offre = Offre::where('desponibilite', 'oui')->first();
 
-        return view('index', [
-            'vehicules' => $vehicules,
-            'selectedVehicule' => $vehicule
-        ]);
+
+        return view('index', compact('vehicules', 'selectedVehicule', 'offre'));
     }
+
 
     public function store(Request $request)
     {
@@ -53,6 +57,7 @@ class ReservationController extends Controller
         if (!$user->client) {
             return redirect()->back()->with('error', 'Client profile incomplete');
         }
+
 
         $validated = $request->validate([
             'dateDebut' => 'required|date',
@@ -94,6 +99,9 @@ class ReservationController extends Controller
             $frontPath = $request->file('permis_front')->storeAs('permis', $frontFile, 'public');
             $backPath = $request->file('permis_back')->storeAs('permis', $backFile, 'public');
 
+            $offre = Offre::where('desponibilite', 'oui')->first();
+
+
             $reservation = Reservation::create([
                 'dateDebut' => $validated['dateDebut'],
                 'dateFin' => $validated['dateFin'],
@@ -102,7 +110,9 @@ class ReservationController extends Controller
                 'vehicule_id' => $validated['vehicule_id'],
                 'client_id' => $client->id,
                 'statut' => 'en_attente',
+                'offre_id' => $offre?->id, // Peut être null si aucune offre active
             ]);
+
 
             return redirect()->route('reservation.show', $reservation->id)
                 ->with('success', 'Réservation créée avec succès!');
@@ -116,13 +126,22 @@ class ReservationController extends Controller
 
     public function show($id)
     {
-        $reservation = Reservation::with(['vehicule', 'client'])->findOrFail($id);
+        $reservation = Reservation::with(['vehicule', 'client', 'offre'])->findOrFail($id);
+
 
         // Calculate total
         $start = \Carbon\Carbon::parse($reservation->dateDebut);
         $end = \Carbon\Carbon::parse($reservation->dateFin);
         $days = $start->diffInDays($end) + 1;
-        $total = $reservation->vehicule->tarif * $days;
+        $tarif = $reservation->vehicule->tarif;
+        $offre = $reservation->offre;
+        if ($offre && $offre->desponibilite === 'oui') {
+            $tarif -= ($tarif * $offre->reduction / 100);
+        }
+
+
+        $total = $tarif * $days;
+
 
         return view('reservations.show', compact('reservation', 'total'));
     }
@@ -134,10 +153,17 @@ class ReservationController extends Controller
         $start = \Carbon\Carbon::parse($reservation->dateDebut);
         $end = \Carbon\Carbon::parse($reservation->dateFin);
         $days = $start->diffInDays($end) + 1;
-        $total = $reservation->vehicule->tarif * $days;
+        $tarif = $reservation->vehicule->tarif;
+        $offre = $reservation->offre;
+        if ($offre && $offre->desponibilite === 'oui') {
+            $tarif -= ($tarif * $offre->reduction / 100);
+        }
+
+
+        $total = $tarif * $days;
+
 
         $pdf = Pdf::loadView('pdf.reservation', compact('reservation', 'days', 'total'));
         return $pdf->download('reservation_' . $reservation->id . '.pdf');
     }
-
 }

@@ -23,6 +23,7 @@ class Vehicule extends Model
         'etoiles',
         'admin_id'
     ];
+    
 
     // Relationships
     public function reservations()
@@ -30,10 +31,6 @@ class Vehicule extends Model
         return $this->hasMany(Reservation::class);
     }
 
-    public function assurance()
-    {
-        return $this->hasOne(Assurance::class);
-    }
 
     public function admin()
     {

@@ -8,15 +8,23 @@ use App\Http\Controllers\AvisController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ReservationController;
+use App\Http\Controllers\ServiceClientController;
 use App\Http\Controllers\SignupController;
 use App\Http\Controllers\VehiculeController;
 use App\Models\Avis;
+use App\Models\Offre;
 use Illuminate\Support\Facades\Route;
 use App\Models\Vehicule;
 
 
 Route::get('/', function () {
-    return view('welcome');
+    $vehicules = Vehicule::where('disponibilite', true)->get();
+    $avis = Avis::with('client')->get();
+
+    if (request()->has('vehicule')) {
+        $selectedVehicule = Vehicule::find(request('vehicule'));
+    }
+    return view('welcome',compact('vehicules','avis'));
 });
 
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
@@ -29,18 +37,17 @@ Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 Route::get('/index', function () {
     $vehicules = Vehicule::where('disponibilite', true)->get();
     $avis = Avis::with('client')->get();
+    $offre = Offre::where('desponibilite', 'oui')->first();
+
 
     $selectedVehicule = null;
     if (request()->has('vehicule')) {
         $selectedVehicule = Vehicule::find(request('vehicule'));
     }
 
-    return view('index', compact('vehicules', 'avis', 'selectedVehicule'));
+    return view('index', compact('vehicules', 'avis', 'selectedVehicule', 'offre'));
 })->name('index');
 
-Route::get('/contact', function () {
-    return view('contact');
-});
 
 Route::resource('vehicules', VehiculeController::class);
 Route::patch('/vehicules/{vehicule}/toggle-availability', [VehiculeController::class, 'toggleAvailability'])->name('vehicules.toggle-availability');
@@ -62,9 +69,15 @@ Route::get('/reservation/vehicle/{vehicule}', function ($vehicule) {
 Route::get('/reservations/{id}', [ReservationController::class, 'show'])->name('reservations.show');
 Route::get('/reservation/{id}/download', [ReservationController::class, 'downloadPDF'])->name('reservation.download');
 
-
-
 Route::post('/avis', [AvisController::class, 'store'])->name('avis.store')->middleware('auth');
+
+// Dans le groupe admin
+Route::get('/messages', [ServiceClientController::class, 'index'])->name('admin.messages');
+Route::delete('/messages/{message}', [ServiceClientController::class, 'destroy'])->name('admin.messages.destroy');
+
+// Routes contact
+Route::get('/contact', [ServiceClientController::class, 'showContactForm'])->name('contact.form');
+Route::post('/contact', [ServiceClientController::class, 'store'])->name('contact.store');
 
 //end clien
 
@@ -80,6 +93,11 @@ Route::prefix('admin')->group(function () {
     Route::get('/cars/{id}/edit', [VehiculeController::class, 'edit'])->name('admin.cars.edit');
     Route::put('/cars/{id}', [VehiculeController::class, 'update'])->name('admin.cars.update');
     Route::delete('/cars/{id}', [VehiculeController::class, 'destroy'])->name('admin.cars.destroy');
+
+    Route::get('/messages', [ServiceClientController::class, 'index'])->name('admin.messages');
+    Route::get('/messages/{message}', [ServiceClientController::class, 'show'])->name('admin.messages.show');
+    Route::delete('/messages/{message}', [ServiceClientController::class, 'destroy'])->name('admin.messages.destroy');
+
 
     // Clients
     Route::get('/clients', [ClientController::class, 'index'])->name('admin.clients');

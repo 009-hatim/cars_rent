@@ -18,7 +18,8 @@ class Reservation extends Model
         'commentaires',
         'vehicule_id',
         'client_id',
-        'admin_id'
+        'admin_id',
+        'offre_id'
     ];
 
     protected $casts = [
@@ -64,5 +65,8 @@ class Reservation extends Model
         return $this->statut === self::STATUS_CONFIRMED;
     }
 
-
+    public function offre()
+    {
+        return $this->belongsTo(Offre::class);
+    }
 }

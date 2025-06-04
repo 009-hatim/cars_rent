@@ -3,16 +3,18 @@
 namespace App\Http\Controllers;
 
 use App\Models\Offre;
+use App\Models\Vehicule;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class AdminOffreController extends Controller
 {
     public function index()
-    {
-        $offres = Offre::all();
-        return view('admin.adminOffres', compact('offres'));
-    }
+{
+    $offres = Offre::all();
+    $vehicules = Vehicule::all();
+    return view('admin.adminOffres', compact('offres', 'vehicules'));
+}
 
     public function store(Request $request)
     {
@@ -48,10 +50,12 @@ public function edit($id)
 {
     $offre = Offre::findOrFail($id);
     $offres = Offre::all();
+    $vehicules = Vehicule::all();
 
     return view('admin.adminOffres', [
         'offre' => $offre,
         'offres' => $offres,
+        'vehicules' => $vehicules,
         'editMode' => true
     ]);
 }

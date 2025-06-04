@@ -39,7 +39,7 @@ class VehiculeController extends Controller
             'etoiles' => 'required|integer',
             'disponibilite' => 'required|boolean',
             'admin_id' => 'required|exists:admins,id',
-            'options' => 'nullable|string', 
+            'options' => 'nullable|string',
         ]);
 
 

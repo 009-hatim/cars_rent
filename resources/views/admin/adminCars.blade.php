@@ -6,15 +6,28 @@
 <div class="container-fluid">
     <div class="page-header">
         <h1>Gestion des Véhicules</h1>
-        <a href="{{ route('admin.cars.store') }}" class="btn btn-primary">
+        <button type="button" class="btn btn-primary" onclick="document.getElementById('vehicle-form').reset()">
             <i class="fas fa-plus-circle me-1"></i> Nouveau véhicule
-        </a>
+        </button>
     </div>
 
     @if(session('success'))
     <div class="alert alert-success alert-dismissible fade show">
         <i class="fas fa-check-circle me-2"></i>
         {{ session('success') }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    @endif
+
+    @if($errors->any())
+    <div class="alert alert-danger alert-dismissible fade show">
+        <i class="fas fa-exclamation-circle me-2"></i>
+        <strong>Erreurs:</strong>
+        <ul class="mb-0">
+            @foreach($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
     @endif
@@ -28,7 +41,7 @@
                     </h6>
                 </div>
                 <div class="card-body">
-                    <form method="POST" action="{{ isset($editMode) && $editMode ? route('admin.cars.update', $vehicule->id) : route('admin.cars.store') }}">
+                    <form method="POST" action="{{ isset($editMode) && $editMode ? route('admin.cars.update', $vehicule->id) : route('admin.cars.store') }}" id="vehicle-form">
                         @csrf
                         @if(isset($editMode) && $editMode)
                         @method('PUT')
@@ -106,6 +119,8 @@
                             <label for="options" class="form-label">Options</label>
                             <textarea id="options" name="options" class="form-control" rows="3" placeholder="GPS, Bluetooth, Climatisation, etc.">{{ $vehicule->options ?? '' }}</textarea>
                         </div>
+
+                        <input type="hidden" name="admin_id" value="{{ auth()->id() }}">
 
                         <div class="d-flex gap-2">
                             <button type="submit" class="btn btn-primary">

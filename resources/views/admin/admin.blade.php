@@ -176,7 +176,8 @@
         }
 
         /* Forms */
-        .form-control, .form-select {
+        .form-control,
+        .form-select {
             border: 1px solid var(--border-color);
             border-radius: 0.375rem;
             padding: 0.5rem 0.75rem;
@@ -189,7 +190,8 @@
             color: var(--secondary);
         }
 
-        .form-control:focus, .form-select:focus {
+        .form-control:focus,
+        .form-select:focus {
             border-color: var(--primary-light);
             box-shadow: 0 0 0 0.25rem rgba(78, 115, 223, 0.25);
         }
@@ -321,17 +323,22 @@
                 width: 80px;
                 overflow: hidden;
             }
-            .sidebar-header h5, .sidebar .nav-link span {
+
+            .sidebar-header h5,
+            .sidebar .nav-link span {
                 display: none;
             }
+
             .sidebar .nav-link {
                 text-align: center;
                 padding: 0.75rem;
             }
+
             .sidebar .nav-link i {
                 margin-right: 0;
                 font-size: 1rem;
             }
+
             .main-content {
                 margin-left: 80px;
                 width: calc(100% - 80px);
@@ -344,6 +351,7 @@
                 align-items: flex-start;
                 gap: 1rem;
             }
+
             .page-header h1 {
                 margin-bottom: 0.5rem;
             }
@@ -370,54 +378,68 @@
             </div>
             <ul class="nav flex-column">
                 <li class="nav-item">
-                    <a class="nav-link {{ request()->routeIs('admin.dashboard') ? 'active' : '' }}" href="{{ route('admin.dashboard') }}">
+                    <a class="nav-link {{ request()->routeIs('admin.dashboard') ? 'active' : '' }}"
+                        href="{{ route('admin.dashboard') }}">
                         <i class="fas fa-fw fa-tachometer-alt"></i>
                         <span>Tableau de bord</span>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link {{ request()->routeIs('admin.reservations.*') ? 'active' : '' }}" href="{{ route('admin.reservations.index') }}">
+                    <a class="nav-link {{ request()->routeIs('admin.reservations.*') ? 'active' : '' }}"
+                        href="{{ route('admin.reservations.index') }}">
                         <i class="fas fa-fw fa-calendar-check"></i>
                         <span>Réservations</span>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link {{ request()->routeIs('admin.clients*') ? 'active' : '' }}" href="{{ route('admin.clients') }}">
+                    <a class="nav-link {{ request()->routeIs('admin.clients*') ? 'active' : '' }}"
+                        href="{{ route('admin.clients') }}">
                         <i class="fas fa-fw fa-users"></i>
                         <span>Clients</span>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link {{ request()->routeIs('admin.cars*') ? 'active' : '' }}" href="{{ route('admin.cars') }}">
+                    <a class="nav-link {{ request()->routeIs('admin.cars*') ? 'active' : '' }}"
+                        href="{{ route('admin.cars') }}">
                         <i class="fas fa-fw fa-car"></i>
                         <span>Véhicules</span>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link {{ request()->routeIs('admin.avis*') ? 'active' : '' }}" href="{{ route('admin.avis') }}">
+                    <a class="nav-link {{ request()->routeIs('admin.avis*') ? 'active' : '' }}"
+                        href="{{ route('admin.avis') }}">
                         <i class="fas fa-fw fa-star"></i>
                         <span>Avis</span>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link {{ request()->routeIs('offres.*') ? 'active' : '' }}" href="{{ route('offres.index') }}">
+                    <a class="nav-link {{ request()->routeIs('admin.messages*') ? 'active' : '' }}"
+                        href="{{ route('admin.messages') }}">
+                        <i class="fas fa-fw fa-envelope"></i>
+                        <span>Messages clients</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {{ request()->routeIs('offres.*') ? 'active' : '' }}"
+                        href="{{ route('offres.index') }}">
                         <i class="fas fa-fw fa-tags"></i>
                         <span>Offres</span>
                     </a>
                 </li>
                 <li class="nav-item mt-auto mb-4">
-   <form id="logout-form" action="{{ route('logout') }}" method="POST" class="mt-auto mb-4">
-    @csrf
-    <button type="submit" class="nav-link text-white bg-danger bg-opacity-20 rounded-3 px-3 py-2 d-flex align-items-center justify-content-between w-100 border-0 text-start">
-        <div class="d-flex align-items-center">
-            <i class="fas fa-fw fa-sign-out-alt me-2"></i>
-            <span>Déconnexion</span>
-        </div>
-        <i class="fas fa-chevron-right small"></i>
-    </button>
-</form>
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="mt-auto mb-4">
+                        @csrf
+                        <button type="submit"
+                            class="nav-link text-white bg-danger bg-opacity-20 rounded-3 px-3 py-2 d-flex align-items-center justify-content-between w-100 border-0 text-start">
+                            <div class="d-flex align-items-center">
+                                <i class="fas fa-fw fa-sign-out-alt me-2"></i>
+                                <span>Déconnexion</span>
+                            </div>
+                            <i class="fas fa-chevron-right small"></i>
+                        </button>
+                    </form>
 
-</li>
+                </li>
             </ul>
         </div>
 
@@ -440,4 +462,5 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     @stack('scripts')
 </body>
+
 </html>

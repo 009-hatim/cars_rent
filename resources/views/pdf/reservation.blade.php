@@ -237,18 +237,39 @@
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td>Location ({{ $days }} jours × {{ $reservation->vehicule->tarif }} DH/jour)</td>
-                <td>{{ $reservation->vehicule->tarif * $days }} DH</td>
-            </tr>
-            <tr>
-                <td>Taxes et frais</td>
-                <td>0 DH</td>
-            </tr>
-            <tr style="font-weight: bold;">
-                <td>Total à payer</td>
-                <td>{{ $reservation->vehicule->tarif * $days }} DH</td>
-            </tr>
+            @php
+    $tarif = $reservation->vehicule->tarif;
+    $totalSansReduction = $tarif * $days;
+    $reduction = 0;
+    $montantReduction = 0;
+
+    if ($reservation->offre && $reservation->offre->desponibilite === 'oui') {
+        $reduction = $reservation->offre->reduction;
+        $montantReduction = $totalSansReduction * $reduction / 100;
+    }
+
+    $totalFinal = $totalSansReduction - $montantReduction;
+@endphp
+
+<tr>
+    <td>Location ({{ $days }} jours × {{ $tarif }} DH/jour)</td>
+    <td>{{ number_format($totalSansReduction, 2) }} DH</td>
+</tr>
+@if ($reduction > 0)
+<tr>
+    <td>Réduction ({{ $reduction }}%)</td>
+    <td>-{{ number_format($montantReduction, 2) }} DH</td>
+</tr>
+@endif
+<tr>
+    <td>Taxes et frais</td>
+    <td>0 DH</td>
+</tr>
+<tr style="font-weight: bold;">
+    <td>Total à payer</td>
+    <td>{{ number_format($totalFinal, 2) }} DH</td>
+</tr>
+
         </tbody>
     </table>
 
@@ -256,13 +277,13 @@
     <div style="display: flex; gap: 20px; margin-bottom: 20px;">
         <div style="flex: 1;">
             <div>Permis de conduire (Recto)</div>
-            <img src="{{ public_path('storage/permis/' . $reservation->client_id . '__recto.jpg') }}"
+            <img src="{{ public_path('storage/permis/' . $reservation->client_id . '__recto.png') }}"
                  class="permit-image"
                  alt="Permis Recto">
         </div>
         <div style="flex: 1;">
             <div>Permis de conduire (Verso)</div>
-            <img src="{{ public_path('storage/permis/' . $reservation->client_id . '__verso.jpg') }}"
+            <img src="{{ public_path('storage/permis/' . $reservation->client_id . '__verso.png') }}"
                  class="permit-image"
                  alt="Permis Verso">
         </div>

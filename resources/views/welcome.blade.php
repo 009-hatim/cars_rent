@@ -412,260 +412,112 @@
             <div class="text-center mx-auto pb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 800px;">
                 <h1 class="display-5 text-capitalize mb-3">Catégories <span class="text-primary">de véhicules</span>
                 </h1>
-                <p class="mb-0">Les catégories de véhicules offrent une variété d'options adaptées à tous les types
-                    de déplacements, que ce soit pour des voitures économiques, des SUV, des voitures de luxe
-                    ou des utilitaires, garantissant ainsi un choix adapté à chaque besoin.
-                </p>
+                <p class="mb-0">Les catégories de véhicules offrent une variété d'options adaptées à tous les
+                    besoins.</p>
             </div>
             <div class="categories-carousel owl-carousel wow fadeInUp" data-wow-delay="0.1s">
-                <div class="categories-item p-4">
-                    <div class="categories-item-inner">
-                        <div class="categories-img rounded-top">
-                            <img src="{{ asset('assets/img/car-1.png') }}" class="img-fluid w-100 rounded-top" alt="">
-                        </div>
-                        <div class="categories-content rounded-bottom p-4">
-                            <h4>Mercedes Benz R3</h4>
-                            <div class="categories-review mb-4">
-                                <div class="me-3">4.5 étoiles</div>
-                                <div class="d-flex justify-content-center text-secondary">
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star text-body"></i>
-                                </div>
+                @foreach ($vehicules as $vehicule)
+                    <div class="categories-item p-4">
+                        <div class="categories-item-inner">
+                            <div class="categories-img rounded-top">
+                                <img src="{{ asset('assets/cars/img' . $vehicule->id . '.png') }}"
+                                    class="img-fluid w-100 rounded-top"
+                                    alt="{{ $vehicule->marque }} {{ $vehicule->model }}"
+                                    onerror="this.onerror=null; this.src='{{ asset('assets/img/car-default.png') }}'">
                             </div>
-                            <div class="mb-4">
-                                <h4 class="bg-white text-primary rounded-pill py-2 px-4 mb-0">99,00 €/jour</h4>
+                            <div class="categories-content rounded-bottom p-4">
+                                <h4>{{ $vehicule->marque }} {{ $vehicule->model }}</h4>
+                                <div class="categories-review mb-4">
+                                    <div class="me-3">{{ $vehicule->etoiles }} étoiles</div>
+                                    <div class="d-flex justify-content-center text-secondary">
+                                        @for ($i = 1; $i <= 5; $i++)
+                                            <i
+                                                class="fas fa-star{{ $i > $vehicule->etoiles ? ' text-body' : '' }}"></i>
+                                        @endfor
+                                    </div>
+                                </div>
+                                <div class="mb-4">
+                                    <h4 class="bg-white text-primary rounded-pill py-2 px-4 mb-0">
+                                        {{ number_format($vehicule->tarif, 2) }} DH/jour</h4>
+                                </div>
+                                <div class="row gy-2 gx-0 text-center mb-4">
+                                    <div class="col-4 border-end border-white">
+                                        <i class="fa fa-users text-dark"></i>
+                                        <span class="text-body ms-1">{{ $vehicule->capacite }} places</span>
+                                    </div>
+                                    <div class="col-4 border-end border-white">
+                                        <i class="fa fa-gas-pump text-dark"></i>
+                                        <span class="text-body ms-1">{{ ucfirst($vehicule->type_carburant) }}</span>
+                                    </div>
+                                    <div class="col-4">
+                                        <i class="fa fa-cogs text-dark"></i>
+                                        <span class="text-body ms-1">{{ ucfirst($vehicule->transmission) }}</span>
+                                    </div>
+                                    <div class="col-4 border-end border-white">
+                                        <i class="fa fa-calendar text-dark"></i>
+                                        <span class="text-body ms-1">{{ $vehicule->annee }}</span>
+                                    </div>
+                                    <div class="col-4 border-end border-white">
+                                        <i class="fa fa-road text-dark"></i>
+                                        <span class="text-body ms-1">{{ number_format($vehicule->kilometrage) }}
+                                            km</span>
+                                    </div>
+                                </div>
+                                <a href="{{ route('login') }}"
+                                    class="btn btn-primary rounded-pill d-flex justify-content-center py-3">Réserver</a>
                             </div>
-                            <div class="row gy-2 gx-0 text-center mb-4">
-                                <div class="col-4 border-end border-white">
-                                    <i class="fa fa-users text-dark"></i>
-                                    <span class="text-body ms-1">4 places</span>
-                                </div>
-                                <div class="col-4 border-end border-white">
-                                    <i class="fa fa-car text-dark"></i>
-                                    <span class="text-body ms-1">BVA/BVM</span>
-                                </div>
-                                <div class="col-4">
-                                    <i class="fa fa-gas-pump text-dark"></i>
-                                    <span class="text-body ms-1">Essence</span>
-                                </div>
-                                <div class="col-4 border-end border-white">
-                                    <i class="fa fa-car text-dark"></i>
-                                    <span class="text-body ms-1">2015</span>
-                                </div>
-                                <div class="col-4 border-end border-white">
-                                    <i class="fa fa-cogs text-dark"></i>
-                                    <span class="text-body ms-1">Automatique</span>
-                                </div>
-                                <div class="col-4">
-                                    <i class="fa fa-road text-dark"></i>
-                                    <span class="text-body ms-1">27 000 km</span>
-                                </div>
-                            </div>
-                            <a href="#"
-                                class="btn btn-primary rounded-pill d-flex justify-content-center py-3">Réserver</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="categories-item p-4">
-                    <div class="categories-item-inner">
-                        <div class="categories-img rounded-top">
-                            <img src="{{ asset('assets/img/car-2.png') }}" class="img-fluid w-100 rounded-top" alt="">
-                        </div>
-                        <div class="categories-content rounded-bottom p-4">
-                            <h4>Toyota Corolla Cross</h4>
-                            <div class="categories-review mb-4">
-                                <div class="me-3">3.5 étoiles</div>
-                                <div class="d-flex justify-content-center text-secondary">
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star text-body"></i>
-                                </div>
-                            </div>
-                            <div class="mb-4">
-                                <h4 class="bg-white text-primary rounded-pill py-2 px-4 mb-0">128,00 €/jour</h4>
-                            </div>
-                            <div class="row gy-2 gx-0 text-center mb-4">
-                                <div class="col-4 border-end border-white">
-                                    <i class="fa fa-users text-dark"></i>
-                                    <span class="text-body ms-1">4 places</span>
-                                </div>
-                                <div class="col-4 border-end border-white">
-                                    <i class="fa fa-car text-dark"></i>
-                                    <span class="text-body ms-1">BVA/BVM</span>
-                                </div>
-                                <div class="col-4">
-                                    <i class="fa fa-gas-pump text-dark"></i>
-                                    <span class="text-body ms-1">Essence</span>
-                                </div>
-                                <div class="col-4 border-end border-white">
-                                    <i class="fa fa-car text-dark"></i>
-                                    <span class="text-body ms-1">2015</span>
-                                </div>
-                                <div class="col-4 border-end border-white">
-                                    <i class="fa fa-cogs text-dark"></i>
-                                    <span class="text-body ms-1">Automatique</span>
-                                </div>
-                                <div class="col-4">
-                                    <i class="fa fa-road text-dark"></i>
-                                    <span class="text-body ms-1">27 000 km</span>
-                                </div>
-                            </div>
-                            <a href="#"
-                                class="btn btn-primary rounded-pill d-flex justify-content-center py-3">Réserver</a>
                         </div>
                     </div>
-                </div>
-                <div class="categories-item p-4">
-                    <div class="categories-item-inner">
-                        <div class="categories-img rounded-top">
-                            <img src="{{ asset('assets/img/car-3.png') }}"  class="img-fluid w-100 rounded-top" alt="">
-                        </div>
-                        <div class="categories-content rounded-bottom p-4">
-                            <h4>Tesla Model S Plaid</h4>
-                            <div class="categories-review mb-4">
-                                <div class="me-3">3.8 étoiles</div>
-                                <div class="d-flex justify-content-center text-secondary">
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star text-body"></i>
-                                </div>
-                            </div>
-                            <div class="mb-4">
-                                <h4 class="bg-white text-primary rounded-pill py-2 px-4 mb-0">170,00 €/jour</h4>
-                            </div>
-                            <div class="row gy-2 gx-0 text-center mb-4">
-                                <div class="col-4 border-end border-white">
-                                    <i class="fa fa-users text-dark"></i>
-                                    <span class="text-body ms-1">4 places</span>
-                                </div>
-                                <div class="col-4 border-end border-white">
-                                    <i class="fa fa-car text-dark"></i>
-                                    <span class="text-body ms-1">BVA/BVM</span>
-                                </div>
-                                <div class="col-4">
-                                    <i class="fa fa-gas-pump text-dark"></i>
-                                    <span class="text-body ms-1">Électrique</span>
-                                </div>
-                                <div class="col-4 border-end border-white">
-                                    <i class="fa fa-car text-dark"></i>
-                                    <span class="text-body ms-1">2015</span>
-                                </div>
-                                <div class="col-4 border-end border-white">
-                                    <i class="fa fa-cogs text-dark"></i>
-                                    <span class="text-body ms-1">Automatique</span>
-                                </div>
-                                <div class="col-4">
-                                    <i class="fa fa-road text-dark"></i>
-                                    <span class="text-body ms-1">27 000 km</span>
-                                </div>
-                            </div>
-                            <a href="#"
-                                class="btn btn-primary rounded-pill d-flex justify-content-center py-3">Réserver</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="categories-item p-4">
-                    <div class="categories-item-inner">
-                        <div class="categories-img rounded-top">
-                            <img src="{{ asset('assets/img/car-4.png') }}" class="img-fluid w-100 rounded-top" alt="">
-                        </div>
-                        <div class="categories-content rounded-bottom p-4">
-                            <h4>Hyundai Kona Electric</h4>
-                            <div class="categories-review mb-4">
-                                <div class="me-3">4.8 étoiles</div>
-                                <div class="d-flex justify-content-center text-secondary">
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                </div>
-                            </div>
-                            <div class="mb-4">
-                                <h4 class="bg-white text-primary rounded-pill py-2 px-4 mb-0">187,00 €/jour</h4>
-                            </div>
-                            <div class="row gy-2 gx-0 text-center mb-4">
-                                <div class="col-4 border-end border-white">
-                                    <i class="fa fa-users text-dark"></i>
-                                    <span class="text-body ms-1">4 places</span>
-                                </div>
-                                <div class="col-4 border-end border-white">
-                                    <i class="fa fa-car text-dark"></i>
-                                    <span class="text-body ms-1">BVA/BVM</span>
-                                </div>
-                                <div class="col-4">
-                                    <i class="fa fa-gas-pump text-dark"></i>
-                                    <span class="text-body ms-1">Électrique</span>
-                                </div>
-                                <div class="col-4 border-end border-white">
-                                    <i class="fa fa-car text-dark"></i>
-                                    <span class="text-body ms-1">2015</span>
-                                </div>
-                                <div class="col-4 border-end border-white">
-                                    <i class="fa fa-cogs text-dark"></i>
-                                    <span class="text-body ms-1">Automatique</span>
-                                </div>
-                                <div class="col-4">
-                                    <i class="fa fa-road text-dark"></i>
-                                    <span class="text-body ms-1">27 000 km</span>
-                                </div>
-                            </div>
-                            <a href="#"
-                                class="btn btn-primary rounded-pill d-flex justify-content-center py-3">Réserver</a>
-                        </div>
-                    </div>
-                </div>
+                @endforeach
             </div>
         </div>
-        <!-- Car categories End -->
+    </div>
+    <!-- Car categories End -->
 
-        <!-- Car Steps Start -->
-        <div class="container-fluid steps py-5">
-            <div class="container py-5">
-                <div class="text-center mx-auto pb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 800px;">
-                    <h1 class="display-5 text-capitalize text-white mb-3">Processus<span class="text-primary">
-                            RentFast</span></h1>
-                    <p class="mb-0 text-white">Découvrez la simplicité et la rapidité de notre processus de location de
-                        voitures.
-                        Avec RentFast, louer un véhicule devient un jeu d'enfant !
-                    </p>
+
+
+
+
+    <!-- Car Steps Start -->
+    <div class="container-fluid steps py-5">
+        <div class="container py-5">
+            <div class="text-center mx-auto pb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 800px;">
+                <h1 class="display-5 text-capitalize text-white mb-3">Processus<span class="text-primary">
+                        RentFast</span></h1>
+                <p class="mb-0 text-white">Découvrez la simplicité et la rapidité de notre processus de location de
+                    voitures.
+                    Avec RentFast, louer un véhicule devient un jeu d'enfant !
+                </p>
+            </div>
+            <div class="row g-4">
+                <div class="col-lg-4 wow fadeInUp" data-wow-delay="0.1s">
+                    <div class="steps-item p-4 mb-4">
+                        <h4>Entrez en contact</h4>
+                        <p class="mb-0">Prenez contact avec nous facilement. Que ce soit par téléphone, e-mail,
+                            ou en visitant notre agence, nous sommes toujours là pour vous aider.</p>
+                        <div class="setps-number">01.</div>
+                    </div>
                 </div>
-                <div class="row g-4">
-                    <div class="col-lg-4 wow fadeInUp" data-wow-delay="0.1s">
-                        <div class="steps-item p-4 mb-4">
-                            <h4>Entrez en contact</h4>
-                            <p class="mb-0">Prenez contact avec nous facilement. Que ce soit par téléphone, e-mail,
-                                ou en visitant notre agence, nous sommes toujours là pour vous aider.</p>
-                            <div class="setps-number">01.</div>
-                        </div>
+                <div class="col-lg-4 wow fadeInUp" data-wow-delay="0.3s">
+                    <div class="steps-item p-4 mb-4">
+                        <h4>Choisissez une voiture</h4>
+                        <p class="mb-0">Explorez notre flotte variée et trouvez la voiture qui correspond
+                            parfaitement à vos besoins. Réservez votre véhicule en ligne en quelques clics.</p>
+                        <div class="setps-number">02.</div>
                     </div>
-                    <div class="col-lg-4 wow fadeInUp" data-wow-delay="0.3s">
-                        <div class="steps-item p-4 mb-4">
-                            <h4>Choisissez une voiture</h4>
-                            <p class="mb-0">Explorez notre flotte variée et trouvez la voiture qui correspond
-                                parfaitement à vos besoins. Réservez votre véhicule en ligne en quelques clics.</p>
-                            <div class="setps-number">02.</div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 wow fadeInUp" data-wow-delay="0.5s">
-                        <div class="steps-item p-4 mb-4">
-                            <h4>Profitez de la route</h4>
-                            <p class="mb-0">Concentrez-vous sur votre voyage pendant que nous nous occupons du reste.
-                                Vivez une expérience de location sans tracas !</p>
-                            <div class="setps-number">03.</div>
-                        </div>
+                </div>
+                <div class="col-lg-4 wow fadeInUp" data-wow-delay="0.5s">
+                    <div class="steps-item p-4 mb-4">
+                        <h4>Profitez de la route</h4>
+                        <p class="mb-0">Concentrez-vous sur votre voyage pendant que nous nous occupons du reste.
+                            Vivez une expérience de location sans tracas !</p>
+                        <div class="setps-number">03.</div>
                     </div>
                 </div>
             </div>
         </div>
-        <!-- Car Steps End -->
+    </div>
+    <!-- Car Steps End -->
 
         <!-- Début du blog -->
         <div id="blog" class="container-fluid blog py-5">
@@ -875,95 +727,49 @@
         </div>
         <!-- Team End -->
 
-        <!-- Testimonial Start -->
-        <div id="testimonial" class="container-fluid testimonial pb-5">
-            <div class="container pb-5">
-                <div class="text-center mx-auto pb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 800px;">
-                    <h1 class="display-5 text-capitalize mb-3">Avis de <span class="text-primary"> nos clients</span>
-                    </h1>
-                    <p class="mb-0">Découvrez ce que nos clients disent ! Lisez leurs témoignages et expériences pour
-                        en savoir plus sur la qualité de nos services.
-                    </p>
-                </div>
-                <div class="owl-carousel testimonial-carousel wow fadeInUp" data-wow-delay="0.1s">
-                    <div class="testimonial-item">
-                        <div class="testimonial-quote"><i class="fa fa-quote-right fa-2x"></i>
-                        </div>
-                        <div class="testimonial-inner p-4">
-                            <img src="{{ asset('assets/img/testimonial-1.jpg') }}"  class="img-fluid" alt="">
-                            <div class="ms-4">
-                                <h4>Nanami</h4>
-
-                                <div class="d-flex text-primary">
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star text-body"></i>
+         <!-- Testimonial Start -->
+    <div id="testimonial" class="container-fluid testimonial pb-5">
+        <div class="container pb-5">
+            <div class="text-center mx-auto pb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 800px;">
+                <h1 class="display-5 text-capitalize mb-3">Avis de <span class="text-primary"> nos clients</span></h1>
+                <p class="mb-0">Découvrez ce que nos clients disent ! Lisez leurs témoignages et expériences pour
+                    en savoir plus sur la qualité de nos services.
+                </p>
+            </div>
+            <div class="owl-carousel testimonial-carousel wow fadeInUp" data-wow-delay="0.1s">
+                @foreach ($avis as $avi)
+                    @if ($avi->client)
+                        <!-- Check if client exists -->
+                        <div class="testimonial-item">
+                            <div class="testimonial-quote"><i class="fa fa-quote-right fa-2x"></i></div>
+                            <div class="testimonial-inner p-4">
+                                <img src="{{ asset('assets/avis/avis' . $avi->client->id . '.png') }}"
+                                    class="img-fluid rounded-circle" alt="{{ $avi->client->user->nom ?? 'Client' }}"
+                                    onerror="this.onerror=null; this.src='{{ asset('assets/img/testimonial-default.png') }}'">
+                                <div class="ms-4">
+                                    <h4>{{ $avi->client->user->nom ?? 'Anonyme' }}
+                                        {{ $avi->client->user->prenom ?? '' }}</h4>
+                                    <div class="d-flex text-primary">
+                                        @for ($i = 1; $i <= 5; $i++)
+                                            <i class="fas fa-star{{ $i > $avi->note ? ' text-body' : '' }}"></i>
+                                        @endfor
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="border-top rounded-bottom p-4">
-                            <p class="mb-0">"Excellent service !"
-                                J'ai loué une voiture pour une semaine, et tout s'est très bien passé. La voiture était
-                                propre et en excellent état. Le personnel était accueillant et m'a donné des conseils
-                                utiles pour conduire à Marrakech. Je recommande vivement !</p>
-                        </div>
-                    </div>
-                    <div class="testimonial-item">
-                        <div class="testimonial-quote"><i class="fa fa-quote-right fa-2x"></i>
-                        </div>
-                        <div class="testimonial-inner p-4">
-                            <img src="{{ asset('assets/img/testimonial-2.jpg') }}" class="img-fluid" alt="">
-                            <div class="ms-4">
-                                <h4>Tihami</h4>
-
-                                <div class="d-flex text-primary">
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star text-body"></i>
-                                    <i class="fas fa-star text-body"></i>
-                                </div>
+                            <div class="border-top rounded-bottom p-4">
+                                <p class="mb-0">{{ $avi->commentaire }}</p>
+                                @if ($avi->created_at)
+                                    <!-- Safely handle created_at -->
+                                    <small class="text-muted">Posté le {{ $avi->created_at->format('d/m/Y') }}</small>
+                                @endif
                             </div>
                         </div>
-                        <div class="border-top rounded-bottom p-4">
-                            <p class="mb-0">"Correct mais peut mieux faire."
-                                Le processus de réservation était simple, et la voiture correspondait à mes attentes.
-                                Cependant, j'ai dû attendre un peu plus longtemps que prévu pour récupérer le véhicule à
-                                l'agence. Sinon, tout était en ordre.</p>
-                        </div>
-                    </div>
-                    <div class="testimonial-item">
-                        <div class="testimonial-quote"><i class="fa fa-quote-right fa-2x"></i>
-                        </div>
-                        <div class="testimonial-inner p-4">
-                            <img src="{{ asset('assets/img/testimonial-3.jpg') }}" class="img-fluid" alt="">
-                            <div class="ms-4">
-                                <h4>Jakie</h4>
-
-                                <div class="d-flex text-primary">
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star text-body"></i>
-                                    <i class="fas fa-star text-body"></i>
-                                    <i class="fas fa-star text-body"></i>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="border-top rounded-bottom p-4">
-                            <p class="mb-0">"Décevant."
-                                La voiture avait quelques problèmes mécaniques, et j'ai dû retourner à l'agence pour en
-                                changer. Cela a retardé mes plans. Le service client était correct, mais je m'attendais
-                                à une meilleure organisation.
-
-                            </p>
-                        </div>
-                    </div>
-                </div>
+                    @endif
+                @endforeach
             </div>
         </div>
-        <!-- Testimonial End -->
+    </div>
+    <!-- Testimonial End -->
 
         <!-- Footer Start -->
         <div class="container-fluid footer py-5 wow fadeIn" data-wow-delay="0.2s">

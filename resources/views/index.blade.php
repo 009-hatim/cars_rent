@@ -95,6 +95,128 @@
             padding: 20px;
             border-radius: 12px;
         }
+
+
+        /* Enhanced Carousel and Form Styles */
+        .header-carousel {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header-carousel .carousel-item {
+            height: 600px;
+        }
+
+        .header-carousel .carousel-item img {
+            object-fit: cover;
+            height: 100%;
+        }
+
+        .carousel-caption {
+            position: absolute;
+            right: 0;
+            bottom: auto;
+            top: 50%;
+            transform: translateY(-50%);
+            left: auto;
+            padding: 0;
+            text-align: right;
+        }
+
+        .glass-card {
+            background: rgba(0, 0, 0, 0.75);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #fff;
+            transition: all 0.3s ease;
+        }
+
+        .glass-card:hover {
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .glass-card input,
+        .glass-card select,
+        .glass-card .form-control {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .glass-card input:focus,
+        .glass-card select:focus,
+        .glass-card .form-control:focus {
+            background-color: rgba(255, 255, 255, 0.2);
+            border-color: rgba(255, 255, 255, 0.5);
+            box-shadow: 0 0 0 0.25rem rgba(255, 255, 255, 0.1);
+        }
+
+        .glass-card input::placeholder,
+        .glass-card select:invalid {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .glass-card .form-label {
+            color: #f8f9fa;
+            font-weight: 500;
+            margin-bottom: 0.25rem;
+        }
+
+        .glass-card .btn-danger {
+            background-color: #dc3545;
+            border: none;
+            transition: all 0.3s ease;
+        }
+
+        .glass-card .btn-danger:hover {
+            background-color: #bb2d3b;
+            transform: translateY(-2px);
+        }
+
+        .glass-card select option {
+            background-color: #333;
+            color: #fff;
+        }
+
+        #totalPrice {
+            text-align: center;
+            letter-spacing: 1px;
+        }
+
+        @media (max-width: 992px) {
+            .reservation-form {
+                position: relative !important;
+                transform: none !important;
+                margin: 0 auto !important;
+                top: 0 !important;
+                left: 0 !important;
+                width: 100%;
+                padding: 20px;
+            }
+
+            .glass-card {
+                max-width: 100% !important;
+                margin: 0 auto;
+            }
+
+            .carousel-caption {
+                position: absolute;
+                bottom: 20px;
+                left: 0;
+                right: 0;
+                top: auto;
+                transform: none;
+                text-align: center;
+                padding: 0 20px;
+            }
+
+            .carousel-caption div {
+                margin: 0 auto;
+                text-align: center;
+            }
+        }
     </style>
 
 </head>
@@ -158,46 +280,59 @@
 
     <!-- Carousel Start -->
     <div class="header-carousel position-relative">
-        <div id="carouselId" class="carousel slide" data-bs-ride="carousel" data-bs-interval="false">
-            <ol class="carousel-indicators">
-                <li data-bs-target="#carouselId" data-bs-slide-to="0" class="active" aria-current="true"
-                    aria-label="First slide"></li>
-                <li data-bs-target="#carouselId" data-bs-slide-to="1" aria-label="Second slide"></li>
-            </ol>
+        <div id="carouselId" class="carousel slide" data-bs-ride="carousel" data-bs-interval="5000">
+            {{-- <ol class="carousel-indicators">
+            <li data-bs-target="#carouselId" data-bs-slide-to="0" class="active" aria-current="true" aria-label="First slide"></li>
+            <li data-bs-target="#carouselId" data-bs-slide-to="1" aria-label="Second slide"></li>
+        </ol> --}}
 
             <div class="carousel-inner" role="listbox">
                 <!-- First Slide -->
-<div class="carousel-item active">
-    <img src="{{ asset('assets/img/carousel-2.jpg') }}" class="img-fluid w-100" alt="Premier slide" />
-    <div class="carousel-caption d-flex align-items-center justify-content-end">
-        <div class="text-end me-5" style="background-color: rgba(0,0,0,0.6); padding: 20px; border-radius: 10px;">
-            {{-- <h1 class="display-5 text-white fw-bold">Obtenez 15% de réduction sur votre location !</h1>
-            <h1 class="display-5 text-white fw-bold mb-3">Planifiez votre voyage maintenant</h1> --}}
-            <p class="fs-4 text-white">Faites-vous plaisir aux Maroc</p>
-        </div>
-    </div>
-</div>
+                <div class="carousel-item active">
+                    <img src="{{ asset('assets/img/carousel-2.jpg') }}" class="img-fluid w-100" alt="Premier slide" />
+                    <div class="carousel-caption d-flex align-items-center justify-content-end">
+                        <div class="text-end me-5 p-4 rounded-4"
+                            style="background-color: rgba(0,0,0,0.7); max-width: 500px;">
+                            <h1 class="display-5 text-white fw-bold">Obtenez 15% de réduction sur votre location !</h1>
+                            <h2 class="text-white fw-bold mb-3">Planifiez votre voyage maintenant</h2>
+                            <p class="fs-4 text-white">Faites-vous plaisir au Maroc</p>
+                            <a href="#" class="btn btn-primary rounded-pill py-2 px-4 mt-3">En savoir plus</a>
+                        </div>
+                    </div>
+                </div>
 
-<!-- Second Slide -->
-<div class="carousel-item">
-    <img src="{{ asset('assets/img/carousel-1.jpg') }}" class="img-fluid w-100" alt="Deuxième slide" />
-    <div class="carousel-caption d-flex align-items-center justify-content-end">
-        <div class="text-end me-5" style="background-color: rgba(0,0,0,0.6); padding: 20px; border-radius: 10px;">
-            <h1 class="display-5 text-white fw-bold">Découvrez notre flotte de véhicules</h1>
-            <p class="fs-4 text-white">Des options pour tous vos besoins de voyage</p>
-        </div>
-    </div>
-</div>/
+                <!-- Second Slide -->
+                <div class="carousel-item">
+                    <img src="{{ asset('assets/img/carousel-1.jpg') }}" class="img-fluid w-100" alt="Deuxième slide" />
+                    <div class="carousel-caption d-flex align-items-center justify-content-end">
+                        <div class="text-end me-5 p-4 rounded-4"
+                            style="background-color: rgba(0,0,0,0.7); max-width: 500px;">
+                            <h1 class="display-5 text-white fw-bold">Découvrez notre flotte de véhicules</h1>
+                            <p class="fs-4 text-white">Des options pour tous vos besoins de voyage</p>
+                            <a href="#Catégories" class="btn btn-primary rounded-pill py-2 px-4 mt-3">Voir les
+                                véhicules</a>
+                        </div>
+                    </div>
+                </div>
             </div>
+
+            <!-- Carousel Controls -->
+            {{-- <button class="carousel-control-prev" type="button" data-bs-target="#carouselId" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button> --}}
+            {{-- <button class="carousel-control-next" type="button" data-bs-target="#carouselId" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button> --}}
         </div>
 
         <!-- Fixed Form Overlay -->
-        <div class="reservation-form position-absolute top-50 start-0 translate-middle-y ms-5 z-3">
+        <div class="reservation-form position-absolute top-50 start-0 translate-middle-y ms-4 z-3">
             <div class="glass-card p-4 rounded-4 shadow-lg" style="max-width: 450px; width: 100%;">
-
                 @if ($errors->any())
-                    <div class="alert alert-danger">
-                        <ul>
+                    <div class="alert alert-danger rounded-3">
+                        <ul class="mb-0">
                             @foreach ($errors->all() as $error)
                                 <li>{{ $error }}</li>
                             @endforeach
@@ -206,18 +341,23 @@
                 @endif
 
                 @if (session('success'))
-                    <div class="alert alert-success">
+                    <div class="alert alert-success rounded-3">
                         {{ session('success') }}
                     </div>
                 @endif
 
                 @if (session('error'))
-                    <div class="alert alert-danger">
+                    <div class="alert alert-danger rounded-3">
                         {{ session('error') }}
                     </div>
                 @endif
 
-                <h4 class="text-white mb-4">CONTINUER LA RÉSERVATION DE VOITURE</h4>
+                <div class="text-center mb-4">
+                    <h4 class="text-white fw-bold">RÉSERVATION DE VOITURE</h4>
+                    <div class="badge bg-primary rounded-pill px-3 py-2 mb-2">Obtenez 15% de réduction sur votre
+                        location !</div>
+                </div>
+
                 <form id="reservationForm" method="POST" action="{{ route('reservation.store') }}"
                     enctype="multipart/form-data">
                     @csrf
@@ -226,30 +366,21 @@
                         @if (Auth::user()->client)
                             <input type="hidden" name="client_id" value="{{ Auth::user()->client->id }}">
                         @else
-                            <div class="alert alert-warning mb-3">
-                                Vous devez compléter votre profil client avant de réserver.
+                            <div class="alert alert-warning mb-3 rounded-3">
+                                <i class="fas fa-exclamation-triangle me-2"></i> Vous devez compléter votre profil client
+                                avant de réserver.
                             </div>
                         @endif
                     @else
-                        <div class="alert alert-warning mb-3">
-                            <a href="{{ route('login') }}" class="text-white">Connectez-vous</a> pour effectuer une
-                            réservation.
+                        <div class="alert alert-warning mb-3 rounded-3">
+                            <i class="fas fa-user me-2"></i> <a href="{{ route('login') }}"
+                                class="text-white fw-bold">Connectez-vous</a> pour effectuer une réservation.
                         </div>
                     @endauth
 
                     <div class="mb-3">
-                        <label for="permis_front" class="form-label">Permis de conduire (Recto)</label>
-                        <input type="file" id="permis_front" name="permis_front"
-                            class="form-control rounded-pill" accept="image/*" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="permis_back" class="form-label">Permis de conduire (Verso)</label>
-                        <input type="file" id="permis_back" name="permis_back" class="form-control rounded-pill"
-                            accept="image/*" required>
-                    </div>
-
-                    <div class="mb-3">
-                        <label for="vehicule_id" class="form-label">Modèle de véhicule</label>
+                        <label for="vehicule_id" class="form-label"><i class="fas fa-car me-2"></i>Modèle de
+                            véhicule</label>
                         <select id="vehicule_id" name="vehicule_id" class="form-select rounded-pill" required>
                             <option value="" disabled {{ !isset($selectedVehicule) ? 'selected' : '' }}>
                                 Sélectionnez un modèle</option>
@@ -268,84 +399,122 @@
                         @enderror
                     </div>
 
-                    <div class="mb-3">
-                        <label for="dateDebut" class="form-label">Date de début</label>
-                        <input type="date" id="dateDebut" name="dateDebut" class="form-control rounded-pill"
-                            required>
-                        @error('dateDebut')
-                            <div class="text-danger">{{ $message }}</div>
-                        @enderror
+                    <div class="row g-2">
+                        <div class="col-md-6 mb-3">
+                            <label for="dateDebut" class="form-label"><i class="fas fa-calendar-alt me-2"></i>Date de
+                                début</label>
+                            <input type="date" id="dateDebut" name="dateDebut" class="form-control rounded-pill"
+                                required>
+                            @error('dateDebut')
+                                <div class="text-danger">{{ $message }}</div>
+                            @enderror
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="dateFin" class="form-label"><i class="fas fa-calendar-alt me-2"></i>Date de
+                                fin</label>
+                            <input type="date" id="dateFin" name="dateFin" class="form-control rounded-pill"
+                                required>
+                            @error('dateFin')
+                                <div class="text-danger">{{ $message }}</div>
+                            @enderror
+                        </div>
                     </div>
-                    <div class="mb-3">
-                        <label for="dateFin" class="form-label">Date de fin</label>
-                        <input type="date" id="dateFin" name="dateFin" class="form-control rounded-pill"
-                            required>
-                        @error('dateFin')
-                            <div class="text-danger">{{ $message }}</div>
-                        @enderror
+
+                    <div class="row g-2">
+                        <div class="col-md-6 mb-3">
+                            <label for="permis_front" class="form-label"><i class="fas fa-id-card me-2"></i>Permis
+                                (Recto)</label>
+                            <input type="file" id="permis_front" name="permis_front"
+                                class="form-control rounded-pill" accept="image/*" required>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="permis_back" class="form-label"><i class="fas fa-id-card me-2"></i>Permis
+                                (Verso)</label>
+                            <input type="file" id="permis_back" name="permis_back"
+                                class="form-control rounded-pill" accept="image/*" required>
+                        </div>
                     </div>
 
                     <div class="mb-3">
-                        <label class="form-label">Total à payer</label>
+                        <label class="form-label"><i class="fas fa-money-bill-wave me-2"></i>Total à payer</label>
                         <div id="totalPrice" class="form-control rounded-pill fw-bold text-white text-center"
-                            style="background-color: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.3);">
+                            style="background-color: rgba(255, 255, 255, 0.15); border: 1px solid rgba(255, 255, 255, 0.3); font-size: 1.1rem;">
                             0 DH
                         </div>
-
                     </div>
 
-                    <button type="submit" class="btn btn-danger w-100 rounded-pill mt-3" @guest disabled @endguest>
-                        Réservez maintenant
+                    <button type="submit" class="btn btn-danger w-100 rounded-pill py-2 mt-3 fw-bold"
+                        @guest disabled @endguest>
+                        <i class="fas fa-car me-2"></i>Réservez maintenant
                     </button>
                 </form>
             </div>
         </div>
     </div>
+    <!-- Carousel End -->
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const vehiculeSelect = document.getElementById('vehicule_id');
-            const dateDebutInput = document.getElementById('dateDebut');
-            const dateFinInput = document.getElementById('dateFin');
-            const totalPriceElement = document.getElementById('totalPrice');
+    document.addEventListener('DOMContentLoaded', function () {
+        const vehiculeSelect = document.getElementById('vehicule_id');
+        const dateDebutInput = document.getElementById('dateDebut');
+        const dateFinInput = document.getElementById('dateFin');
+        const totalPriceElement = document.getElementById('totalPrice');
 
-            function calculateTotal() {
-                const vehiculeId = vehiculeSelect.value;
-                const dateDebut = new Date(dateDebutInput.value);
-                const dateFin = new Date(dateFinInput.value);
+        // Données de l'offre globale passée depuis Laravel
+        const offre = {!! json_encode($offre) !!};
+        const offreActive = offre && offre.desponibilite === 'oui';
+        const reduction = offre ? parseFloat(offre.reduction) : 0;
 
-                if (!vehiculeId || !dateDebutInput.value || !dateFinInput.value) {
-                    totalPriceElement.textContent = '0 DH';
-                    return;
-                }
+        // Données des véhicules
+        const vehiculesData = {!! json_encode(
+            $vehicules->mapWithKeys(function ($v) {
+                return [
+                    $v->id => [
+                        'tarif' => $v->tarif
+                    ]
+                ];
+            })
+        ) !!};
 
-                // Find the selected vehicle
-                const selectedVehicule = {!! json_encode($vehicules->keyBy('id')) !!}[vehiculeId];
+        function calculateTotal() {
+            const vehiculeId = vehiculeSelect.value;
+            const dateDebut = new Date(dateDebutInput.value);
+            const dateFin = new Date(dateFinInput.value);
 
-                if (!selectedVehicule || !selectedVehicule.tarif) {
-                    totalPriceElement.textContent = '0 DH';
-                    return;
-                }
-
-                // Calculate days difference
-                const timeDiff = dateFin.getTime() - dateDebut.getTime();
-                const daysDiff = Math.ceil(timeDiff / (1000 * 3600 * 24)) +
-                    1; // +1 to include both start and end days
-
-                // Calculate total
-                const total = selectedVehicule.tarif * daysDiff;
-                totalPriceElement.textContent = total + ' DH';
+            if (!vehiculeId || !dateDebutInput.value || !dateFinInput.value) {
+                totalPriceElement.textContent = '0 DH';
+                return;
             }
 
-            // Add event listeners
-            vehiculeSelect.addEventListener('change', calculateTotal);
-            dateDebutInput.addEventListener('change', calculateTotal);
-            dateFinInput.addEventListener('change', calculateTotal);
+            const selectedVehicule = vehiculesData[vehiculeId];
 
-            // Calculate on page load if values are already selected
-            calculateTotal();
-        });
-    </script>
+            if (!selectedVehicule || !selectedVehicule.tarif) {
+                totalPriceElement.textContent = '0 DH';
+                return;
+            }
+
+            const timeDiff = dateFin.getTime() - dateDebut.getTime();
+            const daysDiff = Math.ceil(timeDiff / (1000 * 3600 * 24)) + 1;
+
+            let tarif = selectedVehicule.tarif;
+            let total = tarif * daysDiff;
+
+            if (offreActive && reduction > 0) {
+                tarif -= (tarif * reduction / 100);
+                total = tarif * daysDiff;
+            }
+
+            totalPriceElement.textContent = total.toFixed(2) + ' DH';
+        }
+
+        vehiculeSelect.addEventListener('change', calculateTotal);
+        dateDebutInput.addEventListener('change', calculateTotal);
+        dateFinInput.addEventListener('change', calculateTotal);
+
+        calculateTotal();
+    });
+</script>
+
 
 
     <!-- Carousel End -->

@@ -14,7 +14,13 @@ class Offre extends Model
         'reduction',
         'admin_id'
     ];
-    public function Admin(){
+    public function Admin()
+    {
         return $this->belongsTo(Admin::class);
+    }
+
+    public function reservations()
+    {
+        return $this->hasMany(Reservation::class);
     }
 }

@@ -48,6 +48,12 @@ class User extends Authenticatable
         ];
     }
 
+    public function messagesContact()
+    {
+        return $this->hasMany(ServiceClient::class);
+    }
+
+
     public function setMotDePasseAttribute($value)
     {
         $this->attributes['MotDePasse'] = md5($value);
