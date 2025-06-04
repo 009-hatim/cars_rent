@@ -90,5 +90,4 @@ CarsRent/
 ```
 
 
-## 🧩 Schéma conceptuel de la base de données  
-![Schéma conceptuel](https://github.com/user-attachments/assets/example-schema-conceptuel.png)
+## 🎥 **Vidéo Démonstrative**  
