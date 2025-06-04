@@ -48,6 +48,47 @@ Ces limitations entraînent une perte de temps pour les administrateurs et une e
 ### 🎬 **Diagramme de Séquence**  
 ![image](https://github.com/user-attachments/assets/8db5fb1d-bf87-4dc7-8407-865bd184c092)
 
+## 📌 Structure du Projet  
+
+```bash
+CarsRent/
+│
+├── app/                              # Logique principale (Controllers, Models, Middleware)
+│   ├── Http/
+│   │   ├── Controllers/              # Contrôleurs Laravel (Admin, Client, Réservation, Véhicule, etc.)
+│   │   └── Middleware/
+│   ├── Models/                       # Modèles Laravel (User, Client, Reservation, Vehicle, etc.)
+│   └── Providers/
+│
+├── database/                         # Base de données
+│   ├── factories/
+│   ├── migrations/                   # Scripts de migration des tables
+│   └── seeders/
+│
+├── public/                           # Fichiers publics (images, CSS compilé, JS compilé)
+│
+├── resources/                        # Vues et ressources
+│   ├── css/
+│   ├── js/
+│   └── views/                        # Fichiers Blade (Interface utilisateur)
+│       ├── admin/                    # Pages admin (Dashboard, Gestion Clients, Véhicules, Offres, etc.)
+│       ├── reservations/             # Pages de réservation
+│       ├── pdf/                      # Templates PDF
+│       └── autres vues (login, inscription, contact, etc.)
+│
+├── routes/                           # Routes Laravel
+│   ├── web.php
+│   └── console.php
+│
+├── storage/                          # Fichiers générés, logs, uploads
+│
+├── tests/                            # Tests unitaires et fonctionnels
+│
+├── .env                              # Variables d'environnement
+├── artisan                           # Interface CLI Laravel
+├── composer.json                     # Dépendances PHP (Laravel, packages)
+└── Dockerfile                        # (optionnel) Fichier Docker
+```
 
 
 ## 🧩 Schéma conceptuel de la base de données  
