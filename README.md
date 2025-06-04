@@ -36,8 +36,19 @@ Ces limitations entraînent une perte de temps pour les administrateurs et une e
 - **Base de données** : MySQL  
 - **Outils** : Visual Studio Code, Git, XAMPP
 
-## ⚙️ Diagramme de classes  
-![Diagramme de classes](https://github.com/user-attachments/assets/example-diagram-class.png)
+## 📌 Diagrammes UML  
+
+
+### ⚙️ Diagramme de classes  
+![image](https://github.com/user-attachments/assets/22c1f358-b7ec-4b00-b646-cacb4adeaf5e)
+
+### 🎯 **Diagramme de Cas d’Utilisation**  
+![image](https://github.com/user-attachments/assets/b2de794d-d350-467e-a36d-a0c3d3c3d7a5)
+
+### 🎬 **Diagramme de Séquence**  
+![image](https://github.com/user-attachments/assets/8db5fb1d-bf87-4dc7-8407-865bd184c092)
+
+
 
 ## 🧩 Schéma conceptuel de la base de données  
 ![Schéma conceptuel](https://github.com/user-attachments/assets/example-schema-conceptuel.png)
