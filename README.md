@@ -86,8 +86,7 @@ CarsRent/
 │
 ├── .env                              # Variables d'environnement
 ├── artisan                           # Interface CLI Laravel
-├── composer.json                     # Dépendances PHP (Laravel, packages)
-└── Dockerfile                        # (optionnel) Fichier Docker
+└── composer.json                     # Dépendances PHP (Laravel, packages)
 ```
 
 
