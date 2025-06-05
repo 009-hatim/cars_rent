@@ -1,5 +1,3 @@
-<--  <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
--->
 
 # 🚗 Projet : Système de gestion de location de voitures — RentFast
 
@@ -42,11 +40,14 @@ Ces limitations entraînent une perte de temps pour les administrateurs et une e
 ### ⚙️ Diagramme de classes  
 ![image](https://github.com/user-attachments/assets/22c1f358-b7ec-4b00-b646-cacb4adeaf5e)
 
+
 ### 🎯 **Diagramme de Cas d’Utilisation**  
 ![image](https://github.com/user-attachments/assets/b2de794d-d350-467e-a36d-a0c3d3c3d7a5)
 
+
 ### 🎬 **Diagramme de Séquence**  
 ![image](https://github.com/user-attachments/assets/8db5fb1d-bf87-4dc7-8407-865bd184c092)
+
 
 ## 📌 Structure du Projet  
 
